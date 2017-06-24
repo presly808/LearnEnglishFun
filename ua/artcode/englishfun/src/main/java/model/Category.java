@@ -1,4 +1,4 @@
-package ua.artcode.englishfun.model;
+package model;
 
 /**
  * Created by serhii on 24.06.17.

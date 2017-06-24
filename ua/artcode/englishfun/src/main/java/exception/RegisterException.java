@@ -1,4 +1,4 @@
-package ua.artcode.englishfun.exception;
+package exception;
 
 /**
  * Created by serhii on 24.06.17.
