@@ -1,4 +1,4 @@
-package contoller;
+package ua.artcode.englishfun.contoller;
 
 import ua.artcode.englishfun.exception.AppException;
 import ua.artcode.englishfun.exception.InvalidLoginException;
