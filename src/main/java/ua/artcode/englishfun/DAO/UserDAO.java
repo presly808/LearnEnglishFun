@@ -16,6 +16,9 @@ public class UserDAO implements IDAO<User> {
     private List<User> users = new ArrayList<>();
     private WeakHashMap <String, User> tokens = new WeakHashMap<>();
 
+    public UserDAO(List<User> users) {
+        this.users = users;
+    }
 
     public UserDAO() {
     }

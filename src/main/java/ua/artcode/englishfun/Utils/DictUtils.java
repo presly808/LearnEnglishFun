@@ -29,16 +29,12 @@ public class DictUtils {
 
     public static final String dictionaryDB = "./src/main/resources/dict.txt";
 
-    public static Dictionary convertXmlToDict(String name, Path path, LanguageCategory languageCategory, EnglishLvl englishLvl, Language language) throws Exception {
+    public static Dictionary convertXmlToDict(String name, Path path, LanguageCategory languageCategory, EnglishLvl englishLvl, Language language) throws IOException {
         Dictionary dictionary = new Dictionary();
         dictionary.setNamme(name);
         HashMap <String, Word> vocabluary = new HashMap<>();
         String content = "";
-        try {
-            content = new String(Files.readAllBytes(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        content = new String(Files.readAllBytes(path));
 
 /*        File inputFile = new File("/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/untitled.xml");
         DocumentBuilderFactory dbFactory

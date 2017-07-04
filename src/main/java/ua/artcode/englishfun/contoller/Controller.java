@@ -78,7 +78,7 @@ public class Controller implements MainController {
             else
                 return word.getRussian();
             case Ukr:
-            if (word.getRussian() == null)
+            if (word.getUkrainian() == null)
                 throw new InvalidWordException(error);
             else
                 return word.getUkrainian();
