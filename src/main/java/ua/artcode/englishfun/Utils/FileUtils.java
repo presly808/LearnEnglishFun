@@ -2,6 +2,8 @@ package ua.artcode.englishfun.Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ua.artcode.englishfun.DAO.UserDAO;
+import ua.artcode.englishfun.contoller.Controller;
 import ua.artcode.englishfun.model.Dictionary;
 
 import java.io.FileNotFoundException;
@@ -14,6 +16,9 @@ import java.nio.file.Files;
  * Created by diversaint on 27.06.17.
  */
 public class FileUtils {
+    private static final String pathToUserDB = "./src/main/resources/database/userDB.txt";
+    private static final String pathToDict = "./src/main/resources/database/dict.txt";
+
     public static boolean writeToJson(String filePath, Object object){
         GsonBuilder gb = new GsonBuilder();
         Gson gson = gb.setPrettyPrinting().create();
@@ -34,4 +39,5 @@ public class FileUtils {
         }
         return null;
     }
+
 }
