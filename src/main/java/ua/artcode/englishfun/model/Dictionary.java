@@ -8,11 +8,15 @@ import java.util.Map;
  */
 public class Dictionary {
     private String namme;
-    private Map<String, Word> vocabluary = new HashMap<>();
+    private Map<String, Word> vocabluary;
 
     public Dictionary(String namme, Map<String, Word> vocabluary) {
         this.namme = namme;
         this.vocabluary = vocabluary;
+    }
+
+    public Dictionary() {
+        this.vocabluary = new HashMap<>();
     }
 
     public String getNamme() {

@@ -1,5 +1,6 @@
 package ua.artcode.englishfun.model.users;
 
+import ua.artcode.englishfun.exception.InvalidWordException;
 import ua.artcode.englishfun.model.category.EnglishLvl;
 import ua.artcode.englishfun.model.category.LanguageCategory;
 import ua.artcode.englishfun.model.Video;
@@ -8,18 +9,17 @@ import ua.artcode.englishfun.model.Word;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.TreeSet;
 
 /**
  * Created by diversaint on 26.06.17.
  */
-public class User {
+public class User implements Comparable<User>{
     private static final int MAX_WORDS_TO_STUDY = 200;
     private static int nextID = 0;
     private int id;
     private final String email;
 
-    private String passHash;
+    private String pass;
     private EnglishLvl englishLvl;
     private List<Word> learnedWords;
     private List<Word> wordsToStudy;
@@ -32,7 +32,7 @@ public class User {
     public User(UserBuilder builder) {
         this.id = ++nextID;
         this.email = builder.email;
-        this.passHash = builder.passHash;
+        this.pass = builder.pass;
         this.englishLvl = builder.englishLvl;
         this.languageCategories = builder.languageCategory;
         learnedWords = new ArrayList<>();
@@ -61,9 +61,9 @@ public class User {
         this.englishLvl = englishLvl;
     }
 
-    public void setPassHash(String passHash) {
+    public void setPass(String pass) {
 
-        this.passHash = passHash;
+        this.pass = pass;
     }
 
     public int getId() {
@@ -75,8 +75,8 @@ public class User {
         return email;
     }
 
-    public String getPassHash() {
-        return passHash;
+    public String getPass() {
+        return pass;
     }
 
     public EnglishLvl getEnglishLvl() {
@@ -110,16 +110,15 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (!email.equals(user.email)) return false;
-        return passHash.equals(user.passHash);
+        return pass.equals(user.pass);
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + email.hashCode();
-        result = 31 * result + passHash.hashCode();
+        result = 31 * result + pass.hashCode();
         return result;
     }
 
@@ -133,9 +132,14 @@ public class User {
         return sb.toString();
     }
 
+    @Override
+    public int compareTo(User o) {
+        return this.email.compareTo(o.email);
+    }
+
     public static class UserBuilder {
         private String email;
-        private String passHash;
+        private String pass;
         private EnglishLvl englishLvl;
         private LanguageCategory[] languageCategory;
 
@@ -147,8 +151,8 @@ public class User {
             return this;
         }
 
-        public UserBuilder setPassHash(String passHash) {
-            this.passHash = passHash;
+        public UserBuilder setPass(String pass) {
+            this.pass = pass;
             return this;
         }
 
@@ -167,11 +171,21 @@ public class User {
         }
     }
 
-    public boolean addToWordsToStudy(Word word){
-        if (word == null) throw new NullPointerException("Incorrect word to added");
-
-        return false;
+    public boolean addToWordsToStudy(Word word) throws InvalidWordException {
+        if (word == null) throw new InvalidWordException("Incorrect word to added");
+        if (wordsToStudy.contains(word)) throw new InvalidWordException(word + " already in list");
+        if (wordsToStudy.size() == MAX_WORDS_TO_STUDY) throw new InvalidWordException("Max words in the list");
+        return wordsToStudy.add(word);
     }
+
+    public boolean moveWordToLearned(Word word) throws InvalidWordException {
+        if (word == null) throw new InvalidWordException("Incorrect word to added");
+        if (learnedWords.contains(word)) throw new InvalidWordException(word + " already in list");
+        if (wordsToStudy.contains(word)) wordsToStudy.remove(word);
+        return learnedWords.add(word);
+    }
+
+
 
 
 

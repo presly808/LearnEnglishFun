@@ -1,5 +1,7 @@
 package ua.artcode.englishfun.model;
 
+import ua.artcode.englishfun.exception.InvalidWordException;
+import ua.artcode.englishfun.model.category.EnglishLvl;
 import ua.artcode.englishfun.model.category.LanguageCategory;
 
 /**
@@ -7,11 +9,36 @@ import ua.artcode.englishfun.model.category.LanguageCategory;
  */
 public class Word implements Comparable<Word>{
     private String english;
-    private String[] ukrainian;
-    private String[] russian;
+    private String ukrainian;
+    private String russian;
     private LanguageCategory languageCategory;
+    private EnglishLvl englishLvl;
     private String description;
     private String englishExamplesWithTranslate;
+
+    public void setUkrainian(String ukrainian) {
+        this.ukrainian = ukrainian;
+    }
+
+    public void setRussian(String russian) {
+        this.russian = russian;
+    }
+
+    public void setLanguageCategory(LanguageCategory languageCategory) {
+        this.languageCategory = languageCategory;
+    }
+
+    public void setEnglishLvl(EnglishLvl englishLvl) {
+        this.englishLvl = englishLvl;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setEnglishExamplesWithTranslate(String englishExamplesWithTranslate) {
+        this.englishExamplesWithTranslate = englishExamplesWithTranslate;
+    }
 
     public Word(WordBuilder wordBuilder) {
         this.english = wordBuilder.english;
@@ -20,17 +47,25 @@ public class Word implements Comparable<Word>{
         this.languageCategory = wordBuilder.languageCategory;
         this.description = wordBuilder.description;
         this.englishExamplesWithTranslate = wordBuilder.englishExamplesWithTranslate;
+        this.englishLvl = wordBuilder.englishLvl;
     }
 
     public static class WordBuilder {
 
         private String english;
-        private String[] ukrainian;
-        private String[] russian;
+        private String ukrainian;
+        private String russian;
         private LanguageCategory languageCategory;
         private String description;
         private String englishExamplesWithTranslate;
+        public EnglishLvl englishLvl;
+
         public WordBuilder(){
+        }
+
+        public WordBuilder setEnglishLvl(EnglishLvl englishLvl) {
+            this.englishLvl = englishLvl;
+            return this;
         }
 
 
@@ -39,12 +74,12 @@ public class Word implements Comparable<Word>{
             return this;
         }
 
-        public WordBuilder setUkrainian(String[] ukrainian) {
+        public WordBuilder setUkrainian(String ukrainian) {
             this.ukrainian = ukrainian;
             return this;
         }
 
-        public WordBuilder setRussian(String[] russian) {
+        public WordBuilder setRussian(String russian) {
             this.russian = russian;
             return this;
         }
@@ -68,6 +103,46 @@ public class Word implements Comparable<Word>{
             return new Word(this);
         }
     }
+
+
+    public String getEnglish() {
+        return english;
+    }
+
+    public String getUkrainian() {
+        return ukrainian;
+    }
+
+    public String getRussian() {
+        return russian;
+    }
+
+    public LanguageCategory getLanguageCategory() {
+        return languageCategory;
+    }
+
+    public EnglishLvl getEnglishLvl() {
+        return englishLvl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getEnglishExamplesWithTranslate() {
+        return englishExamplesWithTranslate;
+    }
+
+
+    public boolean checkTranslation(String word) throws InvalidWordException {
+        if (word == null) throw new InvalidWordException("Invalid word");
+        if (this.ukrainian.contains(word)) return true;
+        if (this.russian.contains(word)) return true;
+        return false;
+    }
+
+
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null || getClass() != obj.getClass()) return false;
@@ -78,6 +153,8 @@ public class Word implements Comparable<Word>{
     public int compareTo(Word o) {
         return this.english.compareTo(o.english);
     }
+
+
 
     @Override
     public int hashCode() {
