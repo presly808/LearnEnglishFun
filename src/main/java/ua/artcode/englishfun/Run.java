@@ -1,13 +1,18 @@
 package ua.artcode.englishfun;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import ua.artcode.englishfun.DAO.UserDAO;
 import ua.artcode.englishfun.Utils.DictUtils;
 import ua.artcode.englishfun.Utils.FileUtils;
+import ua.artcode.englishfun.contoller.Controller;
+import ua.artcode.englishfun.html_server.ContextCreator;
 import ua.artcode.englishfun.model.Dictionary;
-import ua.artcode.englishfun.model.category.EnglishLvl;
 import ua.artcode.englishfun.model.category.Language;
-import ua.artcode.englishfun.model.category.LanguageCategory;
-import ua.artcode.englishfun.model.users.User;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.nio.file.Paths;
 
 
@@ -16,14 +21,12 @@ import java.nio.file.Paths;
  */
 public class Run {
     public static void main(String[] args) throws Exception {
-        User.UserBuilder builder = new User.UserBuilder().setEmail("sdsd@com")
-                .setLanguageCategory(new LanguageCategory[]{LanguageCategory.Spoken});
-        //builder.build();
-        User user = new User(builder);
-        int a = 0;
-        Dictionary dictionary = new Dictionary();
-        dictionary = DictUtils.convertXmlToDict("Dict", Paths.get("./src/main/resources/untitled.xml"),
-                LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
-        FileUtils.writeToJson("./src/main/resources/dict.txt", dictionary);
+        Controller controller = new Controller();
+        controller.load();
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        ContextCreator.MainPage(server);
+        server.setExecutor(null);
+        server.start();
+
     }
 }

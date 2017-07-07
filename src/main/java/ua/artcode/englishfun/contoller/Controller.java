@@ -16,10 +16,16 @@ import ua.artcode.englishfun.model.Word;
 import ua.artcode.englishfun.model.category.Language;
 import ua.artcode.englishfun.model.users.User;
 
+import java.io.IOException;
+
+import static ua.artcode.englishfun.Utils.FileUtils.getFromJson;
+import static ua.artcode.englishfun.Utils.FileUtils.writeToJson;
+
 /**
  * Created by diversaint on 01.07.17.
  */
 public class Controller implements MainController {
+    private static final String pathToDB = "/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/database/controller.txt";
 
     private UserDAO userDB;
     protected Dictionary dictionary;
@@ -34,12 +40,12 @@ public class Controller implements MainController {
 
     public Controller() {
         this.userDB = new UserDAO();
-        this.dictionary = FileUtils.getFromJson(DictUtils.dictionaryDB, Dictionary.class);
+        this.dictionary = getFromJson(DictUtils.dictionaryDB, Dictionary.class);
     }
 
     public Controller(UserDAO userDB) {
         this.userDB = userDB;
-        this.dictionary = FileUtils.getFromJson(DictUtils.dictionaryDB, Dictionary.class);
+        this.dictionary = getFromJson(DictUtils.dictionaryDB, Dictionary.class);
     }
 
     public Controller(UserDAO userDB, Dictionary dictionary) {
@@ -62,7 +68,7 @@ public class Controller implements MainController {
 
         User user = new User.UserBuilder().setEmail(email).setPass(pass).build();
 
-        return userDB.create(user) ? new GeneralResponse("User successfully created") : new GeneralResponse("Error creating user");
+        return userDB.create(user) ? new GeneralResponse("User successfully created", true) : new GeneralResponse("Error creating user", false);
     }
 
     @Override
@@ -90,5 +96,14 @@ public class Controller implements MainController {
     @Override
     public GeneralResponse addText(Text text) throws AppException {
         return null;
+    }
+
+    public void save() throws IOException {
+        writeToJson(pathToDB, this);
+    }
+
+    public void load(){
+        Controller loadController = getFromJson(pathToDB, Controller.class);
+        this.userDB = loadController.userDB;
     }
 }

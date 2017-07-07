@@ -55,8 +55,8 @@ public class ControllerTest {
         path = Paths.get("/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/test.xml");
         dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
         controller = new Controller(userDB, dictionaryUkr);
-        sucsses = new GeneralResponse("User successfully created");
-        error = new GeneralResponse("Error creating user");
+        sucsses = new GeneralResponse("User successfully created", true);
+        error = new GeneralResponse("Error creating user", false);
     }
 
     @After

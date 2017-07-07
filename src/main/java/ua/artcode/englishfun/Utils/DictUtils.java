@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class DictUtils {
 
-    public static final String dictionaryDB = "./src/main/resources/dict.txt";
+    public static final String dictionaryDB = "/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/database/dict.txt";
 
     public static Dictionary convertXmlToDict(String name, Path path, LanguageCategory languageCategory, EnglishLvl englishLvl, Language language) throws IOException {
         Dictionary dictionary = new Dictionary();
