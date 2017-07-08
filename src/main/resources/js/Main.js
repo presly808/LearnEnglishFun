@@ -3,6 +3,9 @@
  */
 $(document).ready(function(){
     $('.modal').modal();
+
+    $('#submitRegister').click(register);
+
     toMain();
 
 })
@@ -19,16 +22,15 @@ function register() {
             email: $('#email').val(),
             pass: $('#password').val()
         }),
-    success: function (result) {
+        success: function (result) {
             if (result == 'User successfully created') {
                 $('#modalText').html("Successfully registration! Sign in, please.");
                 $('#modal2').modal('open');
-            }
-                else {
+            } else {
                 $('#modalText').html(result);
                 $('#modal2').modal('open');
-                }
             }
+        }
 
     });
 }

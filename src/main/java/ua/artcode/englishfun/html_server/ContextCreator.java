@@ -1,7 +1,7 @@
 package ua.artcode.englishfun.html_server;
 
 import com.sun.net.httpserver.HttpServer;
-import ua.artcode.englishfun.Utils.ServerUtils;
+import ua.artcode.englishfun.utils.ServerUtils;
 import ua.artcode.englishfun.contoller.Controller;
 import ua.artcode.englishfun.exception.HttpServerException;
 import ua.artcode.englishfun.exception.RegisterException;
@@ -24,11 +24,15 @@ public class ContextCreator {
            try {
                File file = new File("./src/main/resources/html/Main.html");
                if (!file.exists()) throw new HttpServerException("Not found main page");
-               response = new String(Files.readAllBytes(Paths.get(file.getPath())));
+
+               String result = String.join("\n",Files.readAllLines(Paths.get(file.getPath())));
+               ServerUtils.sendResponse(httpExchange, result);
+//               response = new String(Files.readAllBytes(Paths.get(file.getPath())));
            } catch (HttpServerException e) {
                e.printStackTrace();
+               ServerUtils.sendResponse(httpExchange, e.getMessage());
            }
-           ServerUtils.sendResponse(httpExchange, response);
+
         });
     }
 

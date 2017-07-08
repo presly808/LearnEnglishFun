@@ -3,8 +3,8 @@ package ua.artcode.englishfun.contoller;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ua.artcode.englishfun.DAO.UserDAO;
-import ua.artcode.englishfun.Utils.DictUtils;
+import ua.artcode.englishfun.dao.UserDAO;
+import ua.artcode.englishfun.utils.DictUtils;
 import ua.artcode.englishfun.exception.InvalidLoginException;
 import ua.artcode.englishfun.exception.InvalidTokenException;
 import ua.artcode.englishfun.exception.InvalidWordException;
@@ -17,7 +17,6 @@ import ua.artcode.englishfun.model.category.LanguageCategory;
 import ua.artcode.englishfun.model.users.User;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -52,7 +51,8 @@ public class ControllerTest {
         users.add(user1);
         users.add(user2);
         userDB = new UserDAO(users);
-        path = Paths.get("/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/test.xml");
+
+        path = Paths.get(ControllerTest.class.getResource("/test.xml").getPath());
         dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
         controller = new Controller(userDB, dictionaryUkr);
         sucsses = new GeneralResponse("User successfully created", true);

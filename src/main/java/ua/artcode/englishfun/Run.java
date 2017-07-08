@@ -1,19 +1,10 @@
 package ua.artcode.englishfun;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import ua.artcode.englishfun.DAO.UserDAO;
-import ua.artcode.englishfun.Utils.DictUtils;
-import ua.artcode.englishfun.Utils.FileUtils;
 import ua.artcode.englishfun.contoller.Controller;
 import ua.artcode.englishfun.html_server.ContextCreator;
-import ua.artcode.englishfun.model.Dictionary;
-import ua.artcode.englishfun.model.category.Language;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.file.Paths;
 
 
 /**
@@ -28,5 +19,6 @@ public class Run {
         server.setExecutor(null);
         server.start();
 
+        // todo add logging, but currently we can not see when server has started
     }
 }

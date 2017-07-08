@@ -1,10 +1,8 @@
 package ua.artcode.englishfun.contoller;
 
-import ua.artcode.englishfun.DAO.IDAO;
-import ua.artcode.englishfun.DAO.UserDAO;
-import ua.artcode.englishfun.Utils.DictUtils;
-import ua.artcode.englishfun.Utils.FileUtils;
-import ua.artcode.englishfun.Utils.Utils;
+import ua.artcode.englishfun.dao.UserDAO;
+import ua.artcode.englishfun.utils.DictUtils;
+import ua.artcode.englishfun.utils.Utils;
 import ua.artcode.englishfun.exception.AppException;
 import ua.artcode.englishfun.exception.InvalidLoginException;
 import ua.artcode.englishfun.exception.InvalidWordException;
@@ -18,17 +16,19 @@ import ua.artcode.englishfun.model.users.User;
 
 import java.io.IOException;
 
-import static ua.artcode.englishfun.Utils.FileUtils.getFromJson;
-import static ua.artcode.englishfun.Utils.FileUtils.writeToJson;
+import static ua.artcode.englishfun.utils.FileUtils.getFromJson;
+import static ua.artcode.englishfun.utils.FileUtils.writeToJson;
 
 /**
  * Created by diversaint on 01.07.17.
  */
 public class Controller implements MainController {
-    private static final String pathToDB = "/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/database/controller.txt";
+    // todo use relative paths
+    // todo name Constants considering Java Convention
+    private static final String pathToDB = "/database/controller.txt";
 
     private UserDAO userDB;
-    protected Dictionary dictionary;
+    private Dictionary dictionary;
 
     public UserDAO getUserDB() {
         return userDB;

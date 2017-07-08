@@ -1,4 +1,4 @@
-package ua.artcode.englishfun.DAO;
+package ua.artcode.englishfun.dao;
 
 
 /**

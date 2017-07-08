@@ -3,6 +3,7 @@ package ua.artcode.englishfun.model;
 /**
  * Created by serhii on 24.06.17.
  */
+// todo dto (data transfer object) package, and move this class to created package
 public class GeneralResponse {
 
     private final String message;
