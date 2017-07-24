@@ -2,7 +2,7 @@ package ua.artcode.englishfun.contoller;
 
 import ua.artcode.englishfun.dao.UserDAO;
 import ua.artcode.englishfun.utils.DictUtils;
-import ua.artcode.englishfun.utils.Utils;
+import ua.artcode.englishfun.utils.ValidationUtils;
 import ua.artcode.englishfun.exception.AppException;
 import ua.artcode.englishfun.exception.InvalidLoginException;
 import ua.artcode.englishfun.exception.InvalidWordException;
@@ -56,15 +56,15 @@ public class Controller implements MainController {
 
     @Override
     public String logIn(String email, String pass) throws InvalidLoginException {
-        if (!Utils.checkEmail(email)) throw new InvalidLoginException("Invalid email");
-        if (!Utils.checkPass(pass)) throw new InvalidLoginException("Invalid password");
+        if (!ValidationUtils.checkEmail(email)) throw new InvalidLoginException("Invalid email");
+        if (!ValidationUtils.checkPass(pass)) throw new InvalidLoginException("Invalid password");
         return userDB.createToken(new User.UserBuilder().setEmail(email).setPass(pass).build());
     }
 
     @Override
     public GeneralResponse register(String email, String pass) throws RegisterException {
-        if (!Utils.checkEmail(email)) throw new RegisterException("Invalid email");
-        if (!Utils.checkPass(pass)) throw new RegisterException("Invalid password");
+        if (!ValidationUtils.checkEmail(email)) throw new RegisterException("Invalid email");
+        if (!ValidationUtils.checkPass(pass)) throw new RegisterException("Invalid password");
 
         User user = new User.UserBuilder().setEmail(email).setPass(pass).build();
 

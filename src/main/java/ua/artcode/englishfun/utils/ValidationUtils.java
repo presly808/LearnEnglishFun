@@ -4,7 +4,7 @@ package ua.artcode.englishfun.utils;
  * Created by diversaint on 04.07.17.
  */
 // todo rename to ValidationUtils
-public class Utils {
+public class ValidationUtils {
 
     public static final String EMAIL_PATTERN = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 

@@ -17,9 +17,11 @@ public class ServerUtils {
 
     // todo close streams properly, use try with resources
     public static void sendResponse(HttpExchange httpExchange, String response) throws IOException {
-        httpExchange.sendResponseHeaders(SUCCES_STATUS_CODE, response.length());
+        int length = response.length();
+        byte[] bytes = response.getBytes();
+        httpExchange.sendResponseHeaders(SUCCES_STATUS_CODE, bytes.length);
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes());
+        os.write(bytes,0, bytes.length);
         os.flush();
         os.close();
     }

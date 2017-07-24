@@ -9,10 +9,10 @@ import java.io.*;
  * Created by diversaint on 27.06.17.
  */
 public class FileUtils {
+
     // todo get files via ClassLoader from resources
     private static final String pathToUserDB = "./LearnEnglishFun/src/main/resources/database/userDB.txt";
     private static final String pathToDict = "./LearnEnglishFun/src/main/resources/database/dict.txt";
-
 
 /*    public static void writeToJson(String filePath, Object object) throws IOException {
         String objectJson = new Gson().toJson(object);
@@ -24,7 +24,7 @@ public class FileUtils {
 
         File classPathFile = new File(FileUtils.class.getResource(filePath).getFile());
 
-        try(FileWriter writer = new FileWriter(filePath)) {
+        try(FileWriter writer = new FileWriter(classPathFile)) {
             gson.toJson(object, writer);
             return true;
         } catch (IOException e) {
@@ -33,6 +33,7 @@ public class FileUtils {
 
         return false;
     }
+
     public static <T> T getFromJson(String filePath, Class<T> tclass) {
         Gson gson = new Gson();
 

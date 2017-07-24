@@ -16,6 +16,8 @@ public class Run {
         controller.load();
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         ContextCreator.MainPage(server);
+        ContextCreator.StaticFiles(server);
+        ContextCreator.registerForm(server, controller);
         server.setExecutor(null);
         server.start();
 
