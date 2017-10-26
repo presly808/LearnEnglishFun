@@ -143,8 +143,8 @@ public class User implements Comparable<User>{
         private EnglishLvl englishLvl;
         private LanguageCategory[] languageCategory;
 
-        public UserBuilder(){
-        }
+        //public UserBuilder(){
+        //}
 
         public UserBuilder setEmail(String email) {
             this.email = email;

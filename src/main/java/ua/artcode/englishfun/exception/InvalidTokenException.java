@@ -5,6 +5,6 @@ package ua.artcode.englishfun.exception;
  */
 public class InvalidTokenException extends AppException {
     public InvalidTokenException(String message) {
-        super(message);
+        super("Error!" + message);
     }
 }

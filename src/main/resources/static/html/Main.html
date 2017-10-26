@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <!--todo link css materialize files-->
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+</head>
+
+
+<body class="container">
+
+<div class="row">
+    <form class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <input placeholder="Email" id="email" type="email" class="validate">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Password" class="validate" required>
+            </div>
+        </div>
+        <div class="row">
+            <button id="submitRegister" class="btn waves-effect waves-teal">Register</button></td>
+            <button class="btn waves-effect waves-teal">Login</button></td>
+        </div>
+    </form>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/static/js/materialize.js"></script>
+
+<script>
+$(document).ready(function(){
+    $('.modal').modal();
+
+    $('#submitRegister').click(register);
+
+    toMain();
+
+})
+
+function toMain() {
+    $('#loginContainer').show();
+    $('#registerPart').show();
+}
+
+function register() {
+    $.ajax({
+        type: 'POST',
+        url: "/register",
+        data: JSON.stringify({
+            email: $('#email').val(),
+            pass: $('#password').val()
+        }),
+        success: function (result) {
+            if (result == 'User successfully created') {
+                $('#modalText').html("Successfully registration! Sign in, please.");
+                $('#modal2').modal('open');
+            } else {
+                $('#modalText').html(result.val());
+                $('#modal2').modal('open');
+            }
+        }
+
+    });
+}
+
+
+</script>
+</body>
+</html>

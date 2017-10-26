@@ -50,6 +50,7 @@ public class Word implements Comparable<Word>{
         this.englishLvl = wordBuilder.englishLvl;
     }
 
+    // todo remove builder, then you can just add return this in Word class
     public static class WordBuilder {
 
         private String english;

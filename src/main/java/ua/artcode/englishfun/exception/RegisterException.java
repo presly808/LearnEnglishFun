@@ -5,6 +5,6 @@ package ua.artcode.englishfun.exception;
  */
 public class RegisterException extends AppException {
     public RegisterException(String message) {
-        super(message);
+        super("Error!" + message);
     }
 }

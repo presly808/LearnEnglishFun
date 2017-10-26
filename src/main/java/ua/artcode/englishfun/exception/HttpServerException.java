@@ -5,6 +5,6 @@ package ua.artcode.englishfun.exception;
  */
 public class HttpServerException extends AppException {
     public HttpServerException(String message) {
-        super(message);
+        super("Error!" + message);
     }
 }

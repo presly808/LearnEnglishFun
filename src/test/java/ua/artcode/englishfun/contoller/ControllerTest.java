@@ -4,20 +4,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ua.artcode.englishfun.DAO.UserDAO;
-import ua.artcode.englishfun.Utils.DictUtils;
 import ua.artcode.englishfun.exception.InvalidLoginException;
 import ua.artcode.englishfun.exception.InvalidTokenException;
 import ua.artcode.englishfun.exception.InvalidWordException;
 import ua.artcode.englishfun.exception.RegisterException;
 import ua.artcode.englishfun.model.Dictionary;
-import ua.artcode.englishfun.model.GeneralResponse;
 import ua.artcode.englishfun.model.category.EnglishLvl;
 import ua.artcode.englishfun.model.category.Language;
 import ua.artcode.englishfun.model.category.LanguageCategory;
 import ua.artcode.englishfun.model.users.User;
+import ua.artcode.englishfun.utils.DictUtils;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -36,8 +34,6 @@ public class ControllerTest {
     private User user1;
     private User user2;
     private ArrayList<User> users;
-    private GeneralResponse sucsses;
-    private GeneralResponse error;
     private String email1;
     private String pass1;
 
@@ -52,11 +48,10 @@ public class ControllerTest {
         users.add(user1);
         users.add(user2);
         userDB = new UserDAO(users);
-        path = Paths.get("/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/test.xml");
-        dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
+
+        path = Paths.get(ControllerTest.class.getResource("/test.xml").getPath());
+        dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
         controller = new Controller(userDB, dictionaryUkr);
-        sucsses = new GeneralResponse("User successfully created", true);
-        error = new GeneralResponse("Error creating user", false);
     }
 
     @After
@@ -64,34 +59,34 @@ public class ControllerTest {
     }
     @Test
     public void test_convert_xml() throws Exception {
-        dictionary = DictUtils.convertXmlToDict("dict", path, LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
+        dictionary = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
         assertNotNull(dictionary);
         assertTrue(dictionary.getVocabluary().size() == 5);
     }
 
     @Test(expected = IOException.class)
     public void test_convert_xml_nofile() throws Exception {
-        dictionary = DictUtils.convertXmlToDict("dict", Paths.get(""), LanguageCategory.Spoken, EnglishLvl.Basic, Language.Ukr);
+        dictionary = DictUtils.convertXmlToDict("dict", Paths.get(""), LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
     }
 
     @Test
     public void test_register() throws RegisterException {
-        assertEquals(controller.register("user3@gmail.com", "Qwe1234").getMessage(), sucsses.getMessage());
+        assertTrue(controller.register("user3@gmail.com", "Qwe1234", EnglishLvl.BASIC, null).isSuccessResponse());
     }
 
     @Test(expected = RegisterException.class)
     public void test_register_invalid_pass() throws RegisterException {
-        assertEquals(controller.register("user3@gmail.com", "we1234").getMessage(), sucsses.getMessage());
+        assertTrue(controller.register("user3@gmail.com", "234", EnglishLvl.BASIC, null).isSuccessResponse());
     }
 
     @Test(expected = RegisterException.class)
     public void test_register_invalid_email() throws RegisterException {
-        assertNotEquals(controller.register("user3mail.com", "Qwe1234").getMessage(), sucsses.getMessage());
+        assertTrue(!controller.register("user3gmail.com", "Qwe1234", EnglishLvl.BASIC, null).isSuccessResponse());
     }
 
     @Test(expected = RegisterException.class)
     public void test_register_null_email() throws RegisterException {
-        assertNotEquals(controller.register(null, null).getMessage(), sucsses.getMessage());
+        assertTrue(!controller.register(null, null, EnglishLvl.BASIC, null).isSuccessResponse());
     }
 
     @Test

@@ -5,6 +5,6 @@ package ua.artcode.englishfun.exception;
  */
 public class InvalidPathException extends AppException{
     public InvalidPathException(String message) {
-        super(message);
+        super("Error!" + message);
     }
 }
