@@ -31,7 +31,7 @@ public class ServerUtils {
     }
 
     public static <T> T getObject(HttpExchange httpExchange, Class<T> objectClass) throws IOException {
-        ByteArrayOutputStream result = new ByteArrayOutputStream();;
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
         try {
             InputStream is = httpExchange.getRequestBody();
             byte[] buffer = new byte[1024];

@@ -50,7 +50,7 @@ public class ControllerTest {
         userDB = new UserDAO(users);
 
         path = Paths.get(ControllerTest.class.getResource("/test.xml").getPath());
-        dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
+        dictionaryUkr = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.uk);
         controller = new Controller(userDB, dictionaryUkr);
     }
 
@@ -59,14 +59,14 @@ public class ControllerTest {
     }
     @Test
     public void test_convert_xml() throws Exception {
-        dictionary = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
+        dictionary = DictUtils.convertXmlToDict("dict", path, LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.uk);
         assertNotNull(dictionary);
         assertTrue(dictionary.getVocabluary().size() == 5);
     }
 
     @Test(expected = IOException.class)
     public void test_convert_xml_nofile() throws Exception {
-        dictionary = DictUtils.convertXmlToDict("dict", Paths.get(""), LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.Ukr);
+        dictionary = DictUtils.convertXmlToDict("dict", Paths.get(""), LanguageCategory.SPOKEN, EnglishLvl.BASIC, Language.uk);
     }
 
     @Test
@@ -108,12 +108,12 @@ public class ControllerTest {
 
     @Test
     public void test_translate() throws InvalidWordException {
-        assertEquals(controller.translate("zooms", Language.Ukr), "масштабування");
+        assertEquals(controller.translate("zooms", Language.uk), "масштабування");
     }
 
     @Test(expected = InvalidWordException.class)
     public void test_translate_word_null() throws InvalidWordException {
-        assertEquals(controller.translate(null, Language.Ukr), "масштабування");
+        assertEquals(controller.translate(null, Language.uk), "масштабування");
     }
 
     @Test(expected = InvalidWordException.class)
@@ -123,11 +123,11 @@ public class ControllerTest {
 
     @Test(expected = InvalidWordException.class)
     public void test_translate_no_engl_word_in_dict() throws InvalidWordException {
-        assertEquals(controller.translate("luck", Language.Ukr), "масштабування");
+        assertEquals(controller.translate("luck", Language.uk), "масштабування");
     }
 
     @Test(expected = InvalidWordException.class)
     public void test_translate_no_russ_word_in_dict() throws InvalidWordException {
-        assertEquals(controller.translate("zooms", Language.Rus), "масштабування");
+        assertEquals(controller.translate("zooms", Language.ru), "масштабування");
     }
 }

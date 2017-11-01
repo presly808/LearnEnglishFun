@@ -27,7 +27,9 @@ public class FileUtils {
         GsonBuilder gb = new GsonBuilder();
         Gson gson = gb.setPrettyPrinting().create();
 
+
         File classPathFile = new File(FileUtils.class.getResource(filePath).getFile());
+
 
         try(FileWriter writer = new FileWriter(classPathFile)) {
             gson.toJson(object, writer);
@@ -43,7 +45,7 @@ public class FileUtils {
         Gson gson = new Gson();
 
         //InputStream classPathInputStream = FileUtils.class.getResourceAsStream(filePath);
-        InputStream classPathInputStream = FileUtils.class.getClassLoader().getResource(filePath).openStream();
+        InputStream classPathInputStream = FileUtils.class.getResource(filePath).openStream();
 
         try(Reader reader = new InputStreamReader(classPathInputStream)) {
             return gson.fromJson(reader, tclass);

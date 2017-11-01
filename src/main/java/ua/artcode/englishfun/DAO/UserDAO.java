@@ -25,7 +25,7 @@ public class UserDAO implements IDAO<User> {
     @Override
     public boolean create(User user) {
 
-        if (users.contains(user)) return false;
+        if (isUserRegisted(user)) return false;
 
         return users.add(user);
     }
@@ -63,9 +63,8 @@ public class UserDAO implements IDAO<User> {
 
         int userIndex = users.indexOf(user);
 
-        User isEmailRegisted = users.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
 
-        if (isEmailRegisted == null) {
+        if (!isUserRegisted(user)) {
             throw  new InvalidLoginException("Error! User with this email do not exists! Check email or register it.");
         } else if (userIndex == -1) throw new InvalidLoginException("Invalid password");
 
@@ -88,5 +87,10 @@ public class UserDAO implements IDAO<User> {
         if (user == null) throw new InvalidTokenException("Invalid token");
 
         return user;
+    }
+
+    public boolean isUserRegisted(User user){
+        User isEmailRegisted = users.stream().filter(u -> u.getEmail().equals(user.getEmail())).findFirst().orElse(null);
+        return isEmailRegisted != null;
     }
 }

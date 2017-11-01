@@ -3,6 +3,7 @@ package ua.artcode.englishfun;
 import com.sun.net.httpserver.HttpServer;
 import ua.artcode.englishfun.contoller.Controller;
 import ua.artcode.englishfun.html_server.ContextCreator;
+import ua.artcode.englishfun.translators.TranslateGoogleApiImpl;
 
 import java.net.InetSocketAddress;
 
@@ -13,8 +14,10 @@ import java.net.InetSocketAddress;
 public class Run {
     public static String userToken;
     public static void main(String[] args) throws Exception {
+        TranslateGoogleApiImpl translateGoogleApi = new TranslateGoogleApiImpl();
         Controller controller = new Controller();
         controller.load();
+        controller.save();
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         ContextCreator.MainPage(server);
         ContextCreator.StaticFiles(server);

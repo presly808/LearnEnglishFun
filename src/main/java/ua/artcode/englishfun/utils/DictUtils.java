@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 public class DictUtils {
 
     // todo do not use absolute paths, get files from resources (https://www.mkyong.com/java/java-read-a-file-from-resources-folder/)
-    public static final String dictionaryDB = "database/dict.txt";
+    public static final String dictionaryDB = "/database/dict.txt";
 
     public static Dictionary convertXmlToDict(String name, Path path, LanguageCategory languageCategory, EnglishLvl englishLvl, Language language) throws IOException {
         Dictionary dictionary = new Dictionary();
@@ -64,10 +64,10 @@ public class DictUtils {
             Word word = new Word.WordBuilder().setEnglish(englWord).setLanguageCategory(languageCategory).setEnglishLvl(englishLvl).build();
 
             switch (language) {
-                case Rus:
+                case ru:
                     word.setRussian(translWord);
                     break;
-                case Ukr:
+                case uk:
                     word.setUkrainian(translWord);
             }
             vocabluary.put(englWord, word);

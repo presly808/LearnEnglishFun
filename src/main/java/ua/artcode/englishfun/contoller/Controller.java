@@ -26,7 +26,7 @@ import static ua.artcode.englishfun.utils.FileUtils.writeToJson;
 public class Controller implements MainController {
     // todo use relative paths
     // todo name Constants considering Java Convention
-    private final String pathToDB = "database/controller.txt";
+    private final String pathToDB = "/database/controller.txt";
     //this.getClass().getClassLoader().getResource("database/controller.txt").getPath();
 
     private UserDAO userDB;
@@ -80,12 +80,12 @@ public class Controller implements MainController {
         String error = "No '" + wordToTranslate + "' in dictionary";
         if (word == null) throw new InvalidWordException(error);
         switch (languageDest){
-            case Rus:
+            case ru:
             if (word.getRussian() == null)
                 throw new InvalidWordException(error);
             else
                 return word.getRussian();
-            case Ukr:
+            case uk:
             if (word.getUkrainian() == null)
                 throw new InvalidWordException(error);
             else

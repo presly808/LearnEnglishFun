@@ -87,7 +87,8 @@ public class ContextCreator {
     }
     public static void loginContext(HttpServer httpServer, Controller controller){
         httpServer.createContext("/login", httpExchange -> {
-            String response = "Error! Incorrect  password";
+            ResponseLoginModel response = new ResponseLoginModel();
+            response.errorMsg = "Error! Incorrect  password";
             LoginModel loginModel = ServerUtils.getObject(httpExchange, LoginModel.class);
 
             try {
@@ -95,14 +96,17 @@ public class ContextCreator {
 
                 User user = controller.getUserDB().getUserbyToken(Run.userToken);
 
-                if (Run.userToken.length() > 1)
-                    response = new Gson().toJson(user);
+                if (Run.userToken.length() > 1){
+                    response.setUser(user);
+                    response.setErrorMsg(null);
+                    response.setUserToken(Run.userToken);
+                }
             } catch (InvalidLoginException | InvalidTokenException e) {
                 e.printStackTrace();
                 System.out.println(e.getMessage());
-                response = e.getMessage();
+                response.setErrorMsg(e.getMessage());
             }
-            ServerUtils.sendResponse(httpExchange, response);
+            ServerUtils.sendResponse(httpExchange, new Gson().toJson(response));
             controller.save();
 
         });
@@ -114,5 +118,31 @@ public class ContextCreator {
     private static class LoginModel {
         private String email;
         private String pass;
+    }
+
+    private static class ResponseLoginModel {
+        private User user;
+        private String successMsg;
+        private String errorMsg;
+        private String userToken;
+
+        public ResponseLoginModel() {
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public void setSuccessMsg(String successMsg) {
+            this.successMsg = successMsg;
+        }
+
+        public void setErrorMsg(String errorMsg) {
+            this.errorMsg = errorMsg;
+        }
+
+        public void setUserToken(String userToken) {
+            this.userToken = userToken;
+        }
     }
 }
