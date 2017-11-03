@@ -11,9 +11,10 @@ import java.util.*;
  */
 public class UserDAO implements IDAO<User> {
 
+    private int nextID = 0;
     private List<User> users = new ArrayList<>();
 
-    private Map<String, User> tokens = new WeakHashMap<>();
+    private Map<String, Integer> tokens = new WeakHashMap<>();
 
     public UserDAO(List<User> users) {
         this.users = users;
@@ -22,10 +23,13 @@ public class UserDAO implements IDAO<User> {
     public UserDAO() {
     }
 
+
     @Override
     public boolean create(User user) {
 
         if (isUserRegisted(user)) return false;
+        //int id = users.size();
+        user.setId(++nextID);
 
         return users.add(user);
     }
@@ -74,7 +78,7 @@ public class UserDAO implements IDAO<User> {
             token = UUID.randomUUID().toString();
         } while (tokens.containsKey(token));
 
-        tokens.put(token, users.get(userIndex));
+        tokens.put(token, users.get(userIndex).getId());
 
         return token;
     }
@@ -83,10 +87,10 @@ public class UserDAO implements IDAO<User> {
 
         isTokenExist(token);
 
-        User user = tokens.get(token);
-        if (user == null) throw new InvalidTokenException("Invalid token");
+        int userID = tokens.get(token);
+        if (userID == -1) throw new InvalidTokenException("Invalid token");
 
-        return user;
+        return users.stream().filter(u -> u.getId() == userID).findFirst().orElse(null);
     }
 
     public boolean isUserRegisted(User user){

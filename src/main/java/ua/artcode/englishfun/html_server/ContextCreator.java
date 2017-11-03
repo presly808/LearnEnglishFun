@@ -69,6 +69,12 @@ public class ContextCreator {
         });
     }
 
+    public static void addToWordsToStudyContext(HttpServer httpServer, Controller controller){
+        httpServer.createContext("addToStudy", httpExchange -> {
+            ResponseModel response = new ResponseModel();
+        });
+    }
+
     public static void regContext(HttpServer httpServer, Controller controller){
         httpServer.createContext("/register", httpExchange -> {
             String response = "";
@@ -87,7 +93,7 @@ public class ContextCreator {
     }
     public static void loginContext(HttpServer httpServer, Controller controller){
         httpServer.createContext("/login", httpExchange -> {
-            ResponseLoginModel response = new ResponseLoginModel();
+            ResponseModel response = new ResponseModel();
             response.errorMsg = "Error! Incorrect  password";
             LoginModel loginModel = ServerUtils.getObject(httpExchange, LoginModel.class);
 
@@ -120,13 +126,13 @@ public class ContextCreator {
         private String pass;
     }
 
-    private static class ResponseLoginModel {
+    private static class ResponseModel {
         private User user;
         private String successMsg;
         private String errorMsg;
         private String userToken;
 
-        public ResponseLoginModel() {
+        public ResponseModel() {
         }
 
         public void setUser(User user) {

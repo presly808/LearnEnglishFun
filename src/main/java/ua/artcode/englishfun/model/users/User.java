@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class User implements Comparable<User>{
     private static final int MAX_WORDS_TO_STUDY = 200;
-    private static int nextID = 0;
     private int id;
     private final String email;
 
@@ -30,7 +29,6 @@ public class User implements Comparable<User>{
     private boolean rus;
 
     public User(UserBuilder builder) {
-        this.id = ++nextID;
         this.email = builder.email;
         this.pass = builder.pass;
         this.englishLvl = builder.englishLvl;
@@ -64,6 +62,10 @@ public class User implements Comparable<User>{
     public void setPass(String pass) {
 
         this.pass = pass;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

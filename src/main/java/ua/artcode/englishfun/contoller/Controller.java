@@ -40,9 +40,13 @@ public class Controller implements MainController {
         return dictionary;
     }
 
-    public Controller() throws IOException {
+    public Controller() {
         this.userDB = new UserDAO();
-        this.dictionary = getFromJson(DictUtils.dictionaryDB, Dictionary.class);
+        try {
+            this.dictionary = getFromJson(DictUtils.dictionaryDB, Dictionary.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Controller(UserDAO userDB) throws IOException {
@@ -100,12 +104,17 @@ public class Controller implements MainController {
         return null;
     }
 
-    public void save() throws IOException {
+    public void save() {
         writeToJson(pathToDB, this);
     }
 
-    public void load() throws IOException {
-        Controller loadController = getFromJson(pathToDB, Controller.class);
+    public void load() {
+        Controller loadController = null;
+        try {
+            loadController = getFromJson(pathToDB, Controller.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.userDB = loadController.userDB;
     }
 

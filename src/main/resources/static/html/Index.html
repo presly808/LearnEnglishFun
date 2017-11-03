@@ -8,23 +8,170 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css">
 
-        body{
-            background-image: url(background.jpg);
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            background-size:60%;
+    <style>
+        #btnMoveWordToLearned{
+            margin-top: 70px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
+        #btnMoveWordToStudy{
+            margin-top: 70px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        #wordInfo{
+            margin-top: 50px;
+        }
+        #wordsToStudy{
+            margin-top: 30px;
+        }
+        body{
+            background: url(https://us.v-cdn.net/5021421/uploads/VF9UBSGE86BA.jpg) no-repeat fixed center;
+            background-size:60%;
+
+        }
+        <!--todo ref link to local file-->
+        .nav-tabs {
+            margin-bottom: 15px;
+        }
+        .sign-with {
+            margin-top: 25px;
+            padding: 20px;
+        }
+        div#OR {
+            height: 30px;
+            width: 30px;
+            border: 1px solid #C2C2C2;
+            border-radius: 50%;
+            font-weight: bold;
+            line-height: 28px;
+            text-align: center;
+            font-size: 12px;
+            float: right;
+            position: absolute;
+            right: -16px;
+            top: 40%;
+            z-index: 1;
+            background: #DFDFDF;
+        }
+        .profile {
+            margin: 20px 0;
+        }
+
+        /* Profile sidebar */
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+        }
+
+        .profile-userpic img {
+            float: none;
+            margin: 0 auto;
+            width: 50%;
+            height: 50%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+
+        .profile-usertitle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-usertitle-name {
+            color: #5a7391;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .profile-usertitle-job {
+            text-transform: uppercase;
+            color: #5b9bd1;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-userbuttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+        .profile-usermenu {
+            margin-top: 30px;
+        }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            background-color: #fafcfd;
+            color: #5b9bd1;
+        }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+
+        /* Profile Content */
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+
 
     </style>
 </head>
 <body>
-<div class="container">
+<!-- PAGE STARTED -->
+<!-- NAVBAR MENU -->
+<div class="container" id="bkg">
     <nav class="navbar navbar-inverse fixed-top">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -44,11 +191,11 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Вивчай англійську<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a id="btnMusic" href="#">Слухаючу юлюблену музику</a></li>
-                        <li><a id="btnVideo" href="#">Дивись по-новому анлійською</a></li>
-                        <li><a id="btnBooks" href="#">Читай мовою орігіналу</a></li>
+                        <li class="disabled"><a id="btnMusic" href="#" class="glyphicon glyphicon-headphones"> Слухаючу юлюблену музику</a></li>
+                        <li><a id="btnVideo" href="#" class="glyphicon glyphicon-film"> Дивись по-новому анлійською</a></li>
+                        <li class="disabled"><a id="btnBooks" href="#" class="glyphicon glyphicon-book"> Читай мовою орігіналу</a></li>
                         <li class="divider"></li>
-                        <li><a id="btnTests" href="#">Підвищити рівень! Тести</a></li>
+                        <li class="disabled"><a id="btnTests" href="#" class="glyphicon glyphicon-edit">Підвищити рівень! Тести</a></li>
                     </ul>
                 </li>
             </ul>
@@ -65,201 +212,259 @@
             </ul>
         </div>
     </nav>
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        '</button>
-                    <h4 class="modal-title" id="loginModalLabel">
-                        Увійдіть до свого профілю або зареєструйте новий - <a href="#">englishfun.com</a></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#Login" data-toggle="tab">Увійти</a></li>
-                                <li><a href="#Registration" data-toggle="tab">Реєстрація</a></li>
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="Login">
-                                    <form role="form" id="loginForm" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="emailLogin" class="col-sm-2 control-label">
-                                                Email</label>
-                                            <div class="col-sm-9 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                <input required type="email" class="form-control" id="emailLogin" placeholder="Email" />
-                                            </div>
+</div>
+<!-- END NAVBAR MENU -->
+<!-- MODAL REGISTATION AND LOGIN -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    '</button>
+                <h4 class="modal-title" id="loginModalLabel">
+                    Увійдіть до свого профілю або зареєструйте новий - <a href="#">englishfun.com</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#Login" data-toggle="tab">Увійти</a></li>
+                            <li><a href="#Registration" data-toggle="tab">Реєстрація</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!-- LOGIN WINDOW -->
+                            <div class="tab-pane active" id="Login">
+                                <form role="form" id="loginForm" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="emailLogin" class="col-sm-2 control-label">
+                                            Email</label>
+                                        <div class="col-sm-9 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input required type="email" class="form-control" id="emailLogin" placeholder="Email" />
                                         </div>
-                                        <div class="form-group">
-                                            <label for="passwordLogin" class="col-sm-2 control-label">
-                                                Password</label>
-                                            <div class="col-sm-9 input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                <input required type="password" class="form-control" id="passwordLogin" placeholder="Password" />
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordLogin" class="col-sm-2 control-label">
+                                            Password</label>
+                                        <div class="col-sm-9 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                            <input required type="password" class="form-control" id="passwordLogin" placeholder="Password" />
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <button type="submit" id="submitLogin" class="btn btn-primary btn-sm">
-                                                    Submit</button>
-                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="tab-pane" id="Registration">
-                                    <form id="registrationForm" role="form" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="email" class="col-sm-3 control-label">
-                                                Email</label>
-                                            <div class="col-sm-9">
-                                                <input required type="email" class="form-control" id="email" placeholder="Email" />
-                                                <div class="status" id="statusEmail"></div>
-                                            </div>
+                                        <div class="col-sm-10">
+                                            <button type="submit" id="submitLogin" class="btn btn-primary btn-sm">
+                                                Submit</button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password" class="col-sm-3 control-label">
-                                                Password</label>
-                                            <div class="col-sm-9">
-                                                <input required type="password" class="form-control" id="password" placeholder="Password" minlength="4" maxlength="16"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="passwordConfirm" class="col-sm-3 control-label">
-                                                Password Confirm</label>
-                                            <div class="col-sm-9">
-                                                <input required type="password" class="form-control" id="passwordConfirm" placeholder="Enter again to validate" minlength="4" maxlength="16"/>
-                                                <span id="confirmMessage" class="confirmMessage"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="englishLvl" class="col-sm-3 control-label">
-                                                English level
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="englishLvl" name="englishLvl">
-                                                    <option value="BASIC">BASIC</option>
-                                                    <option value="ELEMANTARY">ELEMANTARY</option>
-                                                    <option value="PRE_INTERMEDIATE">PRE_INTERMEDIATE</option>
-                                                    <option value="INTERMEDIATE">INTERMEDIATE</option>
-                                                    <option value="UPPER_INTERMEDIATE">UPPER_INTERMEDIATE</option>
-                                                    <option value="ADVANCED">ADVANCED</option>
-                                                    <option value="PROFICIENCY">PROFICIENCY</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="languageCategory" class="col-sm-3 control-label">
-                                                Language category
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" id="languageCategory" name="languageCategories" multiple>
-                                                    <option value="GENERAL">General</option>
-                                                    <option value="SPOKEN">Spoken</option>
-                                                    <option value="BUSINESS">Business</option>
-                                                    <option value="ECONOMIC">Economic</option>
-                                                    <option value="TOURIST">Tourist</option>
-                                                    <option value="TECHNICAL">Technical</option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <button id="submitRegister" type="submit" class="btn btn-success">
-                                                    Save & Continue</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
+                            <!-- END LOGIN WINDOW -->
+                            <!-- REGISTRATION WINDOW -->
+                            <div class="tab-pane" id="Registration">
+                                <form id="registrationForm" role="form" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="email" class="col-sm-3 control-label">
+                                            Email</label>
+                                        <div class="col-sm-9">
+                                            <input required type="email" class="form-control" id="email" placeholder="Email" />
+                                            <div class="status" id="statusEmail"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-3 control-label">
+                                            Password</label>
+                                        <div class="col-sm-9">
+                                            <input required type="password" class="form-control" id="password" placeholder="Password" minlength="4" maxlength="16"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordConfirm" class="col-sm-3 control-label">
+                                            Password Confirm</label>
+                                        <div class="col-sm-9">
+                                            <input required type="password" class="form-control" id="passwordConfirm" placeholder="Enter again to validate" minlength="4" maxlength="16"/>
+                                            <span id="confirmMessage" class="confirmMessage"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="englishLvl" class="col-sm-3 control-label">
+                                            English level
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control selectpicker show-tick" id="englishLvl" name="englishLvl">
+                                                <option value="BASIC">BASIC</option>
+                                                <option value="ELEMANTARY">ELEMANTARY</option>
+                                                <option value="PRE_INTERMEDIATE">PRE_INTERMEDIATE</option>
+                                                <option value="INTERMEDIATE">INTERMEDIATE</option>
+                                                <option value="UPPER_INTERMEDIATE">UPPER_INTERMEDIATE</option>
+                                                <option value="ADVANCED">ADVANCED</option>
+                                                <option value="PROFICIENCY">PROFICIENCY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="languageCategory" class="col-sm-3 control-label">
+                                            Language category
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control selectpicker show-tick"  id="languageCategory" name="languageCategories" multiple>
+                                                <option value="GENERAL" selected>General</option>
+                                                <option value="SPOKEN">Spoken</option>
+                                                <option value="BUSINESS">Business</option>
+                                                <option value="ECONOMIC">Economic</option>
+                                                <option value="TOURIST">Tourist</option>
+                                                <option value="TECHNICAL">Technical</option>
+                                            </select>
+                                        </div>
 
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <button id="submitRegister" type="submit" class="btn btn-success">
+                                                Save & Continue</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- END REGISTRATION WINDOW -->
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- END MODAL REGISTATION AND LOGIN -->
+<!-- PROFILE MENU -->
 <div id="userMenu" class="container" style="display: none">
     <div class="row profile" style="filter:alpha(opacity=95); opacity:0.95;">
         <div class="col-md-3">
             <div class="profile-sidebar">
-                <!-- SIDEBAR USERPIC -->
-                <div class="profile-userpic">
-                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
-                </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        Marcus Doe
+                    <div id="profileEmail" class="profile-usertitle-name">
                     </div>
-                    <div class="profile-usertitle-job">
-                        Developer
+                    <div id="profileLanLvl" class="profile-usertitle-job">
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
+                <!-- MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="active">
+                        <li class="active" id="profileCommon">
                             <a href="#">
                                 <i class="glyphicon glyphicon-home"></i>
-                                Overview </a>
+                                Ваш профіль </a>
                         </li>
-                        <li>
+                        <li id="profileSetting" class="disabled">
                             <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings </a>
+                                <i class="glyphicon glyphicon-wrench"></i>
+                                Налаштування профілю </a>
                         </li>
-                        <li>
+                        <li id="profileTranslate">
                             <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks </a>
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                                Гра в слова </a>
                         </li>
-                        <li>
+                        <li id="profileHelp" class="disabled">
                             <a href="#">
                                 <i class="glyphicon glyphicon-flag"></i>
-                                Help </a>
+                                Підртимка </a>
                         </li>
                     </ul>
                 </div>
                 <!-- END MENU -->
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" style="display: none" id="profileRightPart">
             <div class="profile-content">
-                Some user related content goes here...
+                <!-- MENU FOR PROFILE COMMON-->
+                <div id="menuProfileCommon" style="display: none">
+                    <div class="col-md-3">
+                        <div class="profile-usermenu">
+                            <ul class="nav">
+                                <li class="active" id="menuWordsToStudy">
+                                    <a href="#">
+                                        Слова для вивчення
+                                    </a>
+                                </li>
+                                <li id="menuLearnedWords">
+                                    <a href="#">
+                                        Вивчені слова
+                                    </a>
+                                </li>
+                                <li id="menuWatchedVideo" class="disabled">
+                                    <a href="#" >
+                                        Переглянуте відео
+                                    </a>
+                                </li>
+                                <li id="menuFavouriteVideo" class="disabled">
+                                    <a href="#">
+                                        Улюблене відео
+                                    </a>
+                                </li>
+                                <li id="menuLanguageCategories" class="disabled">
+                                    <a href="#">
+                                        Мовні типи для вивчення
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-9">
+                        <!-- MENU FOR WORDS TO STUDY-->
+                        <div id="wordsToStudy" >
+                            <select class="selectpicker form-control" data-size="5" size="5" data-live-search="true" id="wordsToStudySelect" data-header="Select a condiment">
+                            </select>
+                            <div id="wordInfo">
+                            <p><a href="#" id="wordUkrTranslate">ukr word</a></p>
+                            <p><a href="#" id="wordLanguageCategory">languageCategory</a></p>
+                            <p><a href="#" id="wordEnglishLvl">englishLvl</a></p>
+                            <p><a href="#" id="wordDescription">description</a></p>
+                            <p><a href="#" id="wordExamps">englishExamplesWithTranslate</a></p>
+                            </div>
+                            <button id="btnMoveWordToLearned" type="button" class="btn btn-info" style="display: none">Я вивчив це слово!</button>
+                            <button id="btnMoveWordToStudy" type="button" class="btn btn-info" style="display: none">Я підзабув це слово!</button>
+
+                        </div>
+                        <!-- END MENU FOR WORDS TO STUDY-->
+
+
+                    </div>
+                </div>
+                <!-- END MENU FOR PROFILE COMMON-->
             </div>
         </div>
     </div>
 </div>
+<!-- END PROFILE MENU -->
+
+
+
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         var user;
         var userToken;
         var messageRespone;
 
 
-        function checkPass()
-        {
+        /**
+         * supporting func
+         */
+
+        function checkPass(){
             var pass1 = $('#password');
             var passConfirm = $('#passwordConfirm');
 
@@ -283,8 +488,7 @@
             }
         };
 
-        function emailValidate()
-        {
+        function emailValidate(){
             var regMail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             var email = this.value;
 
@@ -303,10 +507,10 @@
 
         function register() {
             var check = checkPass();
-                if (!check) {
-                    alert("Введіть корректно паролі");
-                    return;
-                }
+            if (!check) {
+                alert("Введіть корректно паролі");
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 url: "/register",
@@ -345,6 +549,8 @@
                         userToken = response.userToken
                         $('#loginModal').modal('hide');
                         $('#btnLog').text("Logout from " + user.email.toString());
+                        $('#profileEmail').text(user.email);
+                        $('#profileLanLvl').text(user.englishLvl);
 
                     }
                 }
@@ -352,12 +558,62 @@
             });
         }
 
+        function showWordsMenu(key) {
+            var words;
+            $('#wordsToStudySelect').find('option').remove();
+            $('#wordsToStudySelect').empty();
+
+            if (key == "toStudy"){
+                words = user.wordsToStudy;
+                $.each(words, function () {
+                    $('#wordsToStudySelect').append($("<option></option>").attr('data-subtext', this.ukrainian).text(this.english));
+                })
+                $('#btnMoveWordToLearned').show();
+                $('#btnMoveWordToStudy').hide();
+            } else if(key == "learned"){
+                words = user.learnedWords;
+                $.each(words, function () {
+                    $('#wordsToStudySelect').append($("<option></option>").attr('data-subtext', this.ukrainian).text(this.english));
+                })
+                $('#btnMoveWordToLearned').hide();
+                $('#btnMoveWordToStudy').show();
+            }
+            $('#wordsToStudySelect').selectpicker('refresh');
+            $('#wordsToStudySelect').selectpicker('show');
+            $('ul.dropdown-menu').css({
+                'height': '260px',
+                'overflow':'hidden',
+                'overflow-y':'scroll'
+            });
+
+            setTimeout(function () {
+                $('div.bootstrap-select').addClass('open');
+            });
+
+        }
+        
+        function hideWodsMenu() {
+            $('#wordsToStudy').hide();
+        }
+
+        /**
+         * func for deactivate/hide another el in block
+         */
+
+        function moveActiveStyle(thisEl) {
+            thisEl.parent().children().removeClass();
+            thisEl.addClass('active');
+        }
+        function hideElBrothers(thisEl) {
+            thisEl.parent().children().hide();
+            thisEl.show();
+        }
 
 
 
-        $('#btnProfile').click(function () {
-            $('#userMenu').show();
-        });
+        /**
+         * login and reg tools
+         */
         $('#passwordConfirm').keyup(checkPass);
         $('#email').change(emailValidate);
 
@@ -368,6 +624,9 @@
             location.reload();
         })
 
+        /**
+         * check for valid user and show login modal window for invalid user
+         */
         if (!user) {
             $('#loginModal').modal({
                 show: true,
@@ -375,6 +634,48 @@
                 backdrop: 'static'
             });
         };
+
+
+
+
+        /**
+         * main top menu
+         */
+        $('#profileCommon').click(function () {
+            $('#profileRightPart').toggle(100);
+            $('#menuProfileCommon').toggle(100);
+            showWordsMenu("toStudy")
+
+        })
+
+
+
+        /**
+         * profile menu
+         */
+        $('#btnProfile').click(function () {
+            $('#userMenu').slideToggle(100);
+        });
+        /**
+         * my profile menu
+         */
+
+        $('#menuWordsToStudy').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#wordsToStudy'));
+            showWordsMenu("toStudy");
+        })
+
+
+        $('#menuLearnedWords').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#wordsToStudy'));
+            showWordsMenu("learned");
+        })
+
+
+
+
 
 
 

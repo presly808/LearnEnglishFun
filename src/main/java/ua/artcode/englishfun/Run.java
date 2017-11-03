@@ -3,8 +3,8 @@ package ua.artcode.englishfun;
 import com.sun.net.httpserver.HttpServer;
 import ua.artcode.englishfun.contoller.Controller;
 import ua.artcode.englishfun.html_server.ContextCreator;
-import ua.artcode.englishfun.translators.TranslateGoogleApiImpl;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 
@@ -14,11 +14,19 @@ import java.net.InetSocketAddress;
 public class Run {
     public static String userToken;
     public static void main(String[] args) throws Exception {
-        TranslateGoogleApiImpl translateGoogleApi = new TranslateGoogleApiImpl();
+        //TranslateGoogleApiImpl translateGoogleApi = new TranslateGoogleApiImpl();
+        //Word word  = translateGoogleApi.translate("hi", Language.en, Language.uk);
         Controller controller = new Controller();
         controller.load();
+        //controller.getUserDB().getUsers().get(0).addToWordsToStudy(word);
         controller.save();
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+
+        HttpServer server = null;
+        try {
+            server = HttpServer.create(new InetSocketAddress(8000), 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ContextCreator.MainPage(server);
         ContextCreator.StaticFiles(server);
         ContextCreator.regContext(server, controller);

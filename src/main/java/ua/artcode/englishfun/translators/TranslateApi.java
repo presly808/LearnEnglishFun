@@ -1,5 +1,6 @@
 package ua.artcode.englishfun.translators;
 
+import ua.artcode.englishfun.model.Word;
 import ua.artcode.englishfun.model.category.Language;
 
 import java.io.UnsupportedEncodingException;
@@ -9,6 +10,6 @@ import java.io.UnsupportedEncodingException;
  */
 public interface TranslateApi {
 
-    public TranslateResponse translate(String source, Language sourceLang, Language targetLang) throws UnsupportedEncodingException;
+    public Word translate(String source, Language sourceLang, Language targetLang) throws UnsupportedEncodingException;
 
 }

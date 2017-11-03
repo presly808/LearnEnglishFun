@@ -1,12 +1,31 @@
 {
   "userDB": {
+  "nextID": 1,
     "users": [
       {
         "id": 1,
         "email": "test@gmail.com",
-        "pass": "Qwe123321",
-        "learnedWords": [],
-        "wordsToStudy": [],
+        "pass": "qweqwe",
+        "learnedWords": [
+          {
+            "english": "hello",
+            "ukrainian": "Привіт"
+          },
+          {
+            "english": "fix",
+            "ukrainian": "фикс"
+          }
+        ],
+        "wordsToStudy": [
+          {
+            "english": "hi",
+            "ukrainian": "Привіт"
+          },
+          {
+            "english": "fuck",
+            "ukrainian": "ебать"
+          }
+        ],
         "watchedVideo": [],
         "favouriteVideo": [],
         "ukr": false,

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class TranslateGoogleApiImpl implements TranslateApi {
 
-    public TranslateResponse translate(String sourceWord, Language sourceLang, Language targetLang) throws UnsupportedEncodingException {
+    public Word translate(String sourceWord, Language sourceLang, Language targetLang) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         System.setProperty("http.agent", "Chrome");
         try {
@@ -32,10 +32,14 @@ public class TranslateGoogleApiImpl implements TranslateApi {
             e.printStackTrace();
         }
 
-        ArrayList arrayList = new Gson().fromJson(result.toString("UTF-8"), ArrayList.class);
-        Word word = TranslateResponse.toWord(arrayList);
+        ArrayList arrayList = null;
+        try {
+            arrayList = new Gson().fromJson(result.toString("UTF-8"), ArrayList.class);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 
-        return new Gson().fromJson(result.toString("UTF-8"), TranslateResponse[].class)[0];
+        return TranslateResponse.toWord(arrayList);
     }
 }
