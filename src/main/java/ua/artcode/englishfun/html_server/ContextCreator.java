@@ -4,15 +4,18 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import ua.artcode.englishfun.Run;
 import ua.artcode.englishfun.contoller.Controller;
-import ua.artcode.englishfun.exception.HttpServerException;
-import ua.artcode.englishfun.exception.InvalidLoginException;
-import ua.artcode.englishfun.exception.InvalidTokenException;
-import ua.artcode.englishfun.exception.RegisterException;
+import ua.artcode.englishfun.exception.*;
+import ua.artcode.englishfun.model.Dictionary;
+import ua.artcode.englishfun.model.Word;
 import ua.artcode.englishfun.model.users.User;
 import ua.artcode.englishfun.utils.ServerUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -70,10 +73,65 @@ public class ContextCreator {
     }
 
     public static void addToWordsToStudyContext(HttpServer httpServer, Controller controller){
-        httpServer.createContext("addToStudy", httpExchange -> {
+        httpServer.createContext("/moveWordToStudy", httpExchange -> {
             ResponseModel response = new ResponseModel();
+            Word word = ServerUtils.getObject(httpExchange, Word.class);
+            try {
+                User user = controller.getUserDB().getUserbyToken(Run.userToken);
+                user.addToWordsToStudy(word);
+                response.setUser(user);
+                //todo chek added word in common dictionary and add it to dict
+
+            } catch (InvalidTokenException | InvalidWordException e) {
+                e.printStackTrace();
+                response.setErrorMsg(e.getMessage());
+            }
+            ServerUtils.sendResponse(httpExchange, new Gson().toJson(response));
+            controller.save();
         });
     }
+    public static void moveWordToLearnedContext(HttpServer httpServer, Controller controller){
+        httpServer.createContext("/moveWordToLearned", httpExchange -> {
+            ResponseModel response = new ResponseModel();
+            Word word = ServerUtils.getObject(httpExchange, Word.class);
+            try {
+                User user = controller.getUserDB().getUserbyToken(Run.userToken);
+                user.moveWordToLearned(word);
+                response.setUser(user);
+
+            } catch (InvalidTokenException | InvalidWordException e) {
+                e.printStackTrace();
+                response.setErrorMsg(e.getMessage());
+            }
+            ServerUtils.sendResponse(httpExchange, new Gson().toJson(response));
+            controller.save();
+        });
+    }
+
+    public static void apiImgConext(HttpServer httpServer, Controller controller){
+        httpServer.createContext("/imgApi", httpExchange -> {
+            String response = "";
+            String urlApi = ServerUtils.getObject(httpExchange, String.class);
+            ByteArrayOutputStream result = new ByteArrayOutputStream();
+            System.setProperty("http.agent", "Chrome");
+            try {
+                URL url = new URL(urlApi);
+                InputStream is = url.openStream();
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) != -1) {
+                    result.write(buffer, 0, length);
+                }
+
+                response = String.valueOf(result);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ServerUtils.sendResponse(httpExchange, response);
+        });
+    }
+
 
     public static void regContext(HttpServer httpServer, Controller controller){
         httpServer.createContext("/register", httpExchange -> {
@@ -106,6 +164,7 @@ public class ContextCreator {
                     response.setUser(user);
                     response.setErrorMsg(null);
                     response.setUserToken(Run.userToken);
+                    response.setDictionary(controller.getDictionary());
                 }
             } catch (InvalidLoginException | InvalidTokenException e) {
                 e.printStackTrace();
@@ -128,11 +187,16 @@ public class ContextCreator {
 
     private static class ResponseModel {
         private User user;
+        private Dictionary dictionary;
         private String successMsg;
         private String errorMsg;
         private String userToken;
 
         public ResponseModel() {
+        }
+
+        public void setDictionary(Dictionary dictionary) {
+            this.dictionary = dictionary;
         }
 
         public void setUser(User user) {

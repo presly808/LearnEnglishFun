@@ -31,6 +31,7 @@ public class Controller implements MainController {
 
     private UserDAO userDB;
     private Dictionary dictionary;
+    //todo change dictionary to Map<String, Dictionary> name - dictionary, change methods
 
     public UserDAO getUserDB() {
         return userDB;

@@ -23,7 +23,7 @@ public class Run {
 
         HttpServer server = null;
         try {
-            server = HttpServer.create(new InetSocketAddress(8000), 0);
+            server = HttpServer.create(new InetSocketAddress(8080), 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,6 +31,9 @@ public class Run {
         ContextCreator.StaticFiles(server);
         ContextCreator.regContext(server, controller);
         ContextCreator.loginContext(server, controller);
+        ContextCreator.moveWordToLearnedContext(server, controller);
+        ContextCreator.addToWordsToStudyContext(server, controller);
+        ContextCreator.apiImgConext(server, controller);
         server.setExecutor(null);
         server.start();
 

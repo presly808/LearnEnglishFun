@@ -176,14 +176,20 @@ public class User implements Comparable<User>{
     public boolean addToWordsToStudy(Word word) throws InvalidWordException {
         if (word == null) throw new InvalidWordException("Incorrect word to added");
         if (wordsToStudy.contains(word)) throw new InvalidWordException(word + " already in list");
-        if (wordsToStudy.size() == MAX_WORDS_TO_STUDY) throw new InvalidWordException("Max words in the list");
+        if (wordsToStudy.size() == MAX_WORDS_TO_STUDY) throw new InvalidWordException("Max words in the list. You have 200 words in words to study");
+        int index = learnedWords.indexOf(word);
+        if (index >= 0){
+            word = learnedWords.remove(index);
+        }
         return wordsToStudy.add(word);
     }
 
     public boolean moveWordToLearned(Word word) throws InvalidWordException {
         if (word == null) throw new InvalidWordException("Incorrect word to added");
         if (learnedWords.contains(word)) throw new InvalidWordException(word + " already in list");
-        if (wordsToStudy.contains(word)) wordsToStudy.remove(word);
+        int index = wordsToStudy.indexOf(word);
+        if (index >= 0)
+            word = wordsToStudy.remove(index);
         return learnedWords.add(word);
     }
 
