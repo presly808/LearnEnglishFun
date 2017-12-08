@@ -124,6 +124,7 @@ public class ContextCreator {
                 }
 
                 response = String.valueOf(result);
+                //todo add img url to word and save in db
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -497,9 +497,9 @@
 </div>
 <!-- END PROFILE MENU -->
 <!-- MODAL WORDS PLAY-->
-<div class="modal fade bs-example-modal-lg" id="modalPlayWords" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="margin-top: 150px;">
+<div class="modal fade bs-example-modal-lg" id="modalPlayWords" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg"  style="height: 562px; width: 512px">
-        <img id="imgWordsPlay" class="img-thumbnail img-rounded" src="https://black-star.ru/newbrand/images/logo-star.jpg" width="100px" height="100px" style="position: fixed; left: 40%; top: 0; z-index: 3">
+        <img id="imgWordsPlay" class="img-thumbnail img-rounded" width="100px" height="100px" style="position: fixed; left: 40%; top: 0; z-index: 3">
         <div class="modal-content" style="background: transparent;">
             <div id="carousel-example-generic" class="carousel slide" data-interval="false" style="margin-top: 50px; background: transparent;
                 height: 512px; width: 512px; background-size: 512px 512px;
@@ -512,7 +512,7 @@
                     <h1 id="plawWordEnglish" style="text-align: center"> s</h1>
                     <h2 id="plawWordUkr" style="color: darkred"> s</h2>
                     <button id="btnMoveToStudyPlayWord" type="button" class="btn btn-warning btn-md" style="position: fixed; bottom: 40px">Додати до свого словника</button>
-                    <a href="#" style="bottom: 5px;left: 0px; position: fixed; width: 512px" id="btnShowGoogleTransl">
+                    <a href="#" style="bottom: 5px;left: 0px; position: fixed; width: 512px" id="btnShowGoogleTransl" target="_new">
                         <i class="fa fa-google-plus-square" style="font-size:28px"></i> <i style="font-size:20px; color: red;">Показати більш детальну інформацію</i>
                     </a>
 
@@ -521,10 +521,10 @@
                 </div>
 
                 <!-- Controls -->
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <a id="btnPrevPlayWords" class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <a id="btnNextPlayWords" class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -532,6 +532,15 @@
     </div>
 </div>
 <!-- END MODAL WORDS PLAY-->
+<div id="video" class="container" style="display: none">
+    <video controls="controls" controls preload="metadata">
+        <source src='https://www.iandevlin.com/html5test/webvtt/v/upc-tobymanley.theora.ogg' type='video/ogg'>
+        <source src="https://www.iandevlin.com/html5test/webvtt/v/upc-tobymanley.mp4" type="video/mp4" />
+        <track label="English subtitles" kind="subtitles" srclang="en" src="https://www.iandevlin.com/html5test/webvtt/upc-video-subtitles-en.vtt">
+        Your browser does not support HTML5 video.
+
+    </video>
+</div>
 
 
 
@@ -769,6 +778,8 @@
                 success: function (data) {
                     response = JSON.parse(data);
                     linkToImg = response.data.result.items[0].media;
+                    $('#imgWordsPlay').attr("src", linkToImg);
+
                 },
                 error: function (data) {
                     var a = 's';
@@ -780,17 +791,51 @@
         /** func start play words
          */
 
+        function loadWordsInfoForPlayWords(index, arrayOfWords) {
+            var word = arrayOfWords[index];
+            getImageLinkByWord(word.english);
+            $('#plawWordEnglish').text(word.english);
+            $('#plawWordUkr').text(word.ukrainian);
+            var urlGoogleTransl = "https://translate.google.com/#en/uk/" + word.english.toString();
+            $('#btnShowGoogleTransl').attr('href', urlGoogleTransl);
+
+            $('#btnMoveToStudyPlayWord').unbind().click(function () {
+                moveWordToStudy(word);
+            })
+
+        }
+
         $('#btnPlayWords').click(function () {
             //todo add select lvl and themes
             var vocabluary = dictionary.vocabluary;
-            var array = Object.values(vocabluary);
-            var index = Math.floor(Math.random()* array.length);
-            var word = array[index];
-            getImageLinkByWord(word.english);
-            $('#imgwordsplay').attr('src', linkToImg);
-            $('#plawWordEnglish').text(word.english);
-            $('#plawWordUkr').text(word.ukrainian);
+            var arrayOfWords = Object.values(vocabluary);
+            var index = Math.floor(Math.random()* arrayOfWords.length);
+            loadWordsInfoForPlayWords(index, arrayOfWords);
+            var counterPlaingWords = 0;
+            var arrayOfIndexWrods = [index];
+            $('#btnNextPlayWords').click(function () {
+                if(arrayOfIndexWrods[counterPlaingWords + 1]){
+                    counterPlaingWords++;
+                    loadWordsInfoForPlayWords(counterPlaingWords, arrayOfWords);
+                } else {
+                    counterPlaingWords++;
+                    index = Math.floor(Math.random()* arrayOfWords.length);
+                    arrayOfIndexWrods[counterPlaingWords] = index;
+                    loadWordsInfoForPlayWords(index, arrayOfWords);
+                }
+            })
+
+            $('#btnPrevPlayWords').click(function () {
+                if(arrayOfIndexWrods.length > 1){
+                    counterPlaingWords--;
+                    loadWordsInfoForPlayWords(arrayOfIndexWrods[counterPlaingWords], arrayOfWords);
+                }
+            })
+
+
         })
+
+
 
 
         /**
@@ -907,6 +952,17 @@
             moveActiveStyle($(this));
             hideElBrothers($('#wordsToStudy'));
             showWordsMenu("learned");
+        })
+
+        /**
+         * play video
+         */
+
+        $('#btnVideo').click(function () {
+            $('#userMenu').hide();
+            $('#video').show();
+
+
         })
 
 

@@ -20,10 +20,6 @@
           {
             "english": "hi",
             "ukrainian": "Привіт"
-          },
-          {
-            "english": "fuck",
-            "ukrainian": "ебать"
           }
         ],
         "watchedVideo": [],

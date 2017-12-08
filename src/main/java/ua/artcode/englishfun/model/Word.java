@@ -15,6 +15,15 @@ public class Word implements Comparable<Word>{
     private EnglishLvl englishLvl;
     private String description;
     private String englishExamplesWithTranslate;
+    private String urlImage;
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 
     public void setUkrainian(String ukrainian) {
         this.ukrainian = ukrainian;
