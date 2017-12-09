@@ -12,6 +12,9 @@ public class TranslateResponse {
     public TranslateResponse() {
     }
 
+    // todo create some model (from google response) and use it whatever you need
+    // with generics
+    //
     public static Word toWord(ArrayList arrayList){
         Word.WordBuilder wordBuilder = new Word.WordBuilder();
         ArrayList innerArr = (ArrayList) ((ArrayList) arrayList.get(0)).get(0);

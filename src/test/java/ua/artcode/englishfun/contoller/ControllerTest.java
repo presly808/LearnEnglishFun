@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -33,14 +34,14 @@ public class ControllerTest {
     private UserDAO userDB;
     private User user1;
     private User user2;
-    private ArrayList<User> users;
+    private List<User> users;
     private String email1;
     private String pass1;
 
 
     @Before
     public void setUp() throws Exception {
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
         email1 = "user1@gmail.com";
         pass1 = "Qwe1234";
         user1 = new User.UserBuilder().setEmail(email1).setPass(pass1).build();

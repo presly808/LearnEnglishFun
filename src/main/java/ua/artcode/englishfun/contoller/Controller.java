@@ -23,6 +23,7 @@ import static ua.artcode.englishfun.utils.FileUtils.writeToJson;
 /**
  * Created by diversaint on 01.07.17.
  */
+// todo use some logger
 public class Controller implements MainController {
     // todo use relative paths
     // todo name Constants considering Java Convention
@@ -41,6 +42,7 @@ public class Controller implements MainController {
         return dictionary;
     }
 
+    // todo pass userDao as an argument instead of inner creation
     public Controller() {
         this.userDB = new UserDAO();
         try {
@@ -80,9 +82,12 @@ public class Controller implements MainController {
 
     @Override
     public String translate(String wordToTranslate, Language languageDest) throws InvalidWordException {
+
         if (wordToTranslate == null || languageDest == null) throw new InvalidWordException("Invalid word to translate or language");
+
         Word word = dictionary.getVocabluary().get(wordToTranslate);
         String error = "No '" + wordToTranslate + "' in dictionary";
+
         if (word == null) throw new InvalidWordException(error);
         switch (languageDest){
             case ru:

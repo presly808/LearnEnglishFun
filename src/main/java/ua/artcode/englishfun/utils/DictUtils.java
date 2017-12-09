@@ -28,17 +28,6 @@ public class DictUtils {
         Map<String, Word> vocabluary = new HashMap<>();
         String content = new String(Files.readAllBytes(path));
 
-/*        File inputFile = new File("/Users/macbook/IdeaProjects/LearnEnglishFun/src/main/resources/untitled.xml");
-        DocumentBuilderFactory dbFactory
-                = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(inputFile);
-        doc.getDocumentElement().normalize();
-        Element root = doc.getDocumentElement();
-        NodeList children = root.getChildNodes();
-
-        int a = children.getLength();*/
-
         String[] dictArray = content.split("<ar>");
         Pattern pattern;
         Matcher matcher;

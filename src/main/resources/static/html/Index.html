@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>English Fun</title>
     <meta charset="utf-8">
+    <!--load all lib locally-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,6 +16,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css">
 
+    <!--todo keep css in separate file-->
     <style>
         #btnMoveWordToLearned{
             margin-top: 70px;
@@ -560,6 +562,7 @@
          * auto changing background
          */
         var body = $('body');
+        // todo load locally
         var backgrounds =   ['url(https://us.v-cdn.net/5021421/uploads/VF9UBSGE86BA.jpg)',
                             'url(http://www.virtuallearning.org.uk/wp-content/uploads/2010/11/Autonomous-Learning.jpg)',
                             'url(http://7thgradeela-freel.wikispaces.com/file/view/Picture_1.png/158597641/Picture_1.png)',
@@ -796,6 +799,7 @@
             getImageLinkByWord(word.english);
             $('#plawWordEnglish').text(word.english);
             $('#plawWordUkr').text(word.ukrainian);
+            // todo extract as a constant
             var urlGoogleTransl = "https://translate.google.com/#en/uk/" + word.english.toString();
             $('#btnShowGoogleTransl').attr('href', urlGoogleTransl);
 

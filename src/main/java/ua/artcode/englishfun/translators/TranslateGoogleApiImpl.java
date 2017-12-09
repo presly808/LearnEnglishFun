@@ -16,12 +16,18 @@ import java.util.ArrayList;
  */
 public class TranslateGoogleApiImpl implements TranslateApi {
 
+    public static final String GOOGLE_TRANSLATE_URL = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=";
+
     public Word translate(String sourceWord, Language sourceLang, Language targetLang) {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
+        // todo do only one time
         System.setProperty("http.agent", "Chrome");
         try {
-            URL url = new URL("https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + sourceLang.toString() +
+            //
+            URL url = new URL(GOOGLE_TRANSLATE_URL + sourceLang.toString() +
                     "&tl=" + targetLang.toString() + "&dt=t&q=" + sourceWord);
+
+            // todo find some lib that can read all content in one line of code
             InputStream is = url.openStream();
             byte[] buffer = new byte[1024];
             int length;
@@ -32,8 +38,10 @@ public class TranslateGoogleApiImpl implements TranslateApi {
             e.printStackTrace();
         }
 
+        // todo use List
         ArrayList arrayList = null;
         try {
+            // todo get using ServiceLocator
             arrayList = new Gson().fromJson(result.toString("UTF-8"), ArrayList.class);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

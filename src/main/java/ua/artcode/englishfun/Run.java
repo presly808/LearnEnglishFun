@@ -16,6 +16,7 @@ public class Run {
     public static void main(String[] args) throws Exception {
         //TranslateGoogleApiImpl translateGoogleApi = new TranslateGoogleApiImpl();
         //Word word  = translateGoogleApi.translate("hi", Language.en, Language.uk);
+        // todo create using some Factory pattern
         Controller controller = new Controller();
         controller.load();
         //controller.getUserDB().getUsers().get(0).addToWordsToStudy(word);
@@ -23,6 +24,7 @@ public class Run {
 
         HttpServer server = null;
         try {
+//            todo take the port from a config file
             server = HttpServer.create(new InetSocketAddress(8000), 0);
         } catch (IOException e) {
             e.printStackTrace();

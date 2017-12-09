@@ -14,6 +14,7 @@ public class FileUtils {
     //private static final String pathToDict = "./LearnEnglishFun/src/main/resources/database/dict.txt";
     // todo get files via ClassLoader from resources
 
+    // todo move init logic to the constructor
     private final String pathToDict =
             this.getClass().getClassLoader().getResource("database/dict.txt").getPath();
     private final String pathToUserDB =
@@ -24,6 +25,7 @@ public class FileUtils {
         Files.write(Paths.get(filePath), objectJson.getBytes(), StandardOpenOption.CREATE);
     }*/
     public static boolean writeToJson(String filePath, Object object){
+        // todo crate some container for singletons, ServiceLocator.get('gson'),
         GsonBuilder gb = new GsonBuilder();
         Gson gson = gb.setPrettyPrinting().create();
 

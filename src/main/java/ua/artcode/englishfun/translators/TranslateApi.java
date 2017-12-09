@@ -10,6 +10,6 @@ import java.io.UnsupportedEncodingException;
  */
 public interface TranslateApi {
 
-    public Word translate(String source, Language sourceLang, Language targetLang) throws UnsupportedEncodingException;
+    Word translate(String source, Language sourceLang, Language targetLang) throws UnsupportedEncodingException;
 
 }
