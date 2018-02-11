@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <!--todo link css materialize files-->
+    <meta charset="UTF-8">
+    <title>English Fun</title>
+    <meta charset="utf-8">
+    <!--load all lib locally-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css">
+
+    <!--todo keep css in separate file-->
+    <style>
+        #btnMoveWordToLearned{
+            margin-top: 70px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        #btnMoveWordToStudy{
+            margin-top: 70px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        #wordInfo{
+            margin-top: 50px;
+        }
+        #wordsToStudy{
+            margin-top: 30px;
+        }
+
+        body{
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url(https://us.v-cdn.net/5021421/uploads/VF9UBSGE86BA.jpg);
+            background-attachment: fixed;
+            background-size:60%;
+
+        }
+        <!--todo ref link to local file-->
+        .nav-tabs {
+            margin-bottom: 15px;
+        }
+        .sign-with {
+            margin-top: 25px;
+            padding: 20px;
+        }
+        div#OR {
+            height: 30px;
+            width: 30px;
+            border: 1px solid #C2C2C2;
+            border-radius: 50%;
+            font-weight: bold;
+            line-height: 28px;
+            text-align: center;
+            font-size: 12px;
+            float: right;
+            position: absolute;
+            right: -16px;
+            top: 40%;
+            z-index: 1;
+            background: #DFDFDF;
+        }
+        .profile {
+            margin: 20px 0;
+        }
+
+        /* Profile sidebar */
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+        }
+
+        .profile-userpic img {
+            float: none;
+            margin: 0 auto;
+            width: 50%;
+            height: 50%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+
+        .profile-usertitle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-usertitle-name {
+            color: #5a7391;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .profile-usertitle-job {
+            text-transform: uppercase;
+            color: #5b9bd1;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-userbuttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+        .profile-usermenu {
+            margin-top: 30px;
+        }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            background-color: #fafcfd;
+            color: #5b9bd1;
+        }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+
+        /* Profile Content */
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+
+
+    </style>
+</head>
+<body>
+<!-- PAGE STARTED -->
+<!-- NAVBAR MENU -->
+<div class="container" id="bkg">
+    <nav class="navbar navbar-inverse fixed-top">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">English Fun</a>
+        </div>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Головна</a></li>
+                <li><a id="btnProfile" href="#">Профіль</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">Вивчай англійську<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="disabled"><a id="btnMusic" href="#" class="glyphicon glyphicon-headphones"> Слухаючу юлюблену музику</a></li>
+                        <li><a id="btnVideo" href="#" class="glyphicon glyphicon-film"> Дивись по-новому анлійською</a></li>
+                        <li class="disabled"><a id="btnBooks" href="#" class="glyphicon glyphicon-book"> Читай мовою орігіналу</a></li>
+                        <li class="divider"></li>
+                        <li class="disabled"><a id="btnTests" href="#" class="glyphicon glyphicon-edit">Підвищити рівень! Тести</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right" data-toggle="modal" data-target="#loginModal">
+                <li><a id="btnLog" href="#">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- END NAVBAR MENU -->
+<!-- MODAL REGISTATION AND LOGIN -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    '</button>
+                <h4 class="modal-title" id="loginModalLabel">
+                    Увійдіть до свого профілю або зареєструйте новий - <a href="#">englishfun.com</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#Login" data-toggle="tab">Увійти</a></li>
+                            <li><a href="#Registration" data-toggle="tab">Реєстрація</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <!-- LOGIN WINDOW -->
+                            <div class="tab-pane active" id="Login">
+                                <form role="form" id="loginForm" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="emailLogin" class="col-sm-2 control-label">
+                                            Email</label>
+                                        <div class="col-sm-9 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input required type="email" class="form-control" id="emailLogin" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordLogin" class="col-sm-2 control-label">
+                                            Password</label>
+                                        <div class="col-sm-9 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                            <input required type="password" class="form-control" id="passwordLogin" placeholder="Password" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <button type="submit" id="submitLogin" class="btn btn-primary btn-sm">
+                                                Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- END LOGIN WINDOW -->
+                            <!-- REGISTRATION WINDOW -->
+                            <div class="tab-pane" id="Registration">
+                                <form id="registrationForm" role="form" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="email" class="col-sm-3 control-label">
+                                            Email</label>
+                                        <div class="col-sm-9">
+                                            <input required type="email" class="form-control" id="email" placeholder="Email" />
+                                            <div class="status" id="statusEmail"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-3 control-label">
+                                            Password</label>
+                                        <div class="col-sm-9">
+                                            <input required type="password" class="form-control" id="password" placeholder="Password" minlength="4" maxlength="16"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordConfirm" class="col-sm-3 control-label">
+                                            Password Confirm</label>
+                                        <div class="col-sm-9">
+                                            <input required type="password" class="form-control" id="passwordConfirm" placeholder="Enter again to validate" minlength="4" maxlength="16"/>
+                                            <span id="confirmMessage" class="confirmMessage"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="englishLvl" class="col-sm-3 control-label">
+                                            English level
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control selectpicker show-tick" id="englishLvl" name="englishLvl">
+                                                <option value="BASIC">BASIC</option>
+                                                <option value="ELEMANTARY">ELEMANTARY</option>
+                                                <option value="PRE_INTERMEDIATE">PRE_INTERMEDIATE</option>
+                                                <option value="INTERMEDIATE">INTERMEDIATE</option>
+                                                <option value="UPPER_INTERMEDIATE">UPPER_INTERMEDIATE</option>
+                                                <option value="ADVANCED">ADVANCED</option>
+                                                <option value="PROFICIENCY">PROFICIENCY</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="languageCategory" class="col-sm-3 control-label">
+                                            Language category
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control selectpicker show-tick"  id="languageCategory" name="languageCategories" multiple>
+                                                <option value="GENERAL" selected>General</option>
+                                                <option value="SPOKEN">Spoken</option>
+                                                <option value="BUSINESS">Business</option>
+                                                <option value="ECONOMIC">Economic</option>
+                                                <option value="TOURIST">Tourist</option>
+                                                <option value="TECHNICAL">Technical</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <button id="submitRegister" type="submit" class="btn btn-success">
+                                                Save & Continue</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- END REGISTRATION WINDOW -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL REGISTATION AND LOGIN -->
+<!-- PROFILE MENU -->
+<div id="userMenu" class="container" style="display: none">
+    <div class="row profile" style="filter:alpha(opacity=95); opacity:0.95;">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <div class="profile-usertitle">
+                    <div id="profileEmail" class="profile-usertitle-name">
+                    </div>
+                    <div id="profileLanLvl" class="profile-usertitle-job">
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active" id="profileCommon">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Ваш профіль </a>
+                        </li>
+                        <li id="profileSetting" class="disabled">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-wrench"></i>
+                                Налаштування профілю </a>
+                        </li>
+                        <li id="profilePlay">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                                Гра в слова </a>
+                        </li>
+                        <li id="profileHelp" class="disabled">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-flag"></i>
+                                Підртимка </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+        <div class="col-md-9" style="display: none" id="profileRightPart">
+            <div class="profile-content">
+                <!-- MENU FOR PROFILE COMMON-->
+                <div id="menuProfileCommon" style="display: none">
+                    <div class="col-md-3">
+                        <div class="profile-usermenu">
+                            <ul class="nav">
+                                <li class="active" id="menuWordsToStudy">
+                                    <a href="#">
+                                        Слова для вивчення
+                                    </a>
+                                </li>
+                                <li id="menuLearnedWords">
+                                    <a href="#">
+                                        Вивчені слова
+                                    </a>
+                                </li>
+                                <li id="menuWatchedVideo" class="disabled">
+                                    <a href="#" >
+                                        Переглянуте відео
+                                    </a>
+                                </li>
+                                <li id="menuFavouriteVideo" class="disabled">
+                                    <a href="#">
+                                        Улюблене відео
+                                    </a>
+                                </li>
+                                <li id="menuLanguageCategories" class="disabled">
+                                    <a href="#">
+                                        Мовні типи для вивчення
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-9">
+                        <!-- MENU FOR WORDS TO STUDY-->
+                        <div id="wordsToStudy" >
+                            <select class="selectpicker form-control" data-size="5" size="5" data-live-search="true" id="wordsToStudySelect" data-header="Select a condiment">
+                            </select>
+                            <div id="wordInfo">
+                            <p><a href="#" id="wordUkrTranslate">ukr word</a></p>
+                            <p><a href="#" id="wordLanguageCategory">languageCategory</a></p>
+                            <p><a href="#" id="wordEnglishLvl">englishLvl</a></p>
+                            <p><a href="#" id="wordDescription">description</a></p>
+                            <p><a href="#" id="wordExamps">englishExamplesWithTranslate</a></p>
+                            </div>
+                            <button id="btnMoveWordToLearned" type="button" class="btn btn-info" style="display: none">Я вивчив це слово!</button>
+                            <button id="btnMoveWordToStudy" type="button" class="btn btn-info" style="display: none">Я підзабув це слово!</button>
+
+                        </div>
+                        <!-- END MENU FOR WORDS TO STUDY-->
+
+
+                    </div>
+                </div>
+                <!-- END MENU FOR PROFILE COMMON-->
+                <!-- MENU FOR WORDS PLAY-->
+                <div style="display: none" id="menuPlayWords">
+                    <div class="form-group">
+                        <label for="playWordsLvl" class="col-sm control-label">
+                            Виберіть рівень складності
+                        </label>
+                        <div class="col-sm">
+                            <select class="form-control selectpicker show-tick" id="playWordsLvl" name="englishLvl">
+                                <option value="BASIC">Початковий</option>
+                                <option value="ELEMANTARY">Елементарний</option>
+                                <option value="PRE_INTERMEDIATE">Низький</option>
+                                <option value="INTERMEDIATE">Середній</option>
+                                <option value="UPPER_INTERMEDIATE">Тяжкий</option>
+                                <option value="ADVANCED">Супер тяжкий</option>
+                                <option value="PROFICIENCY">Native speaker</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="playWordsThemes" class="col-sm control-label">
+                            Виберіть тематики слів
+                        </label>
+                        <div class="col-sm">
+                            <select class="form-control selectpicker show-tick"  id="playWordsThemes" name="languageThemes" multiple>
+                                <option value="Test" selected>test</option>
+                                <option value="learnedWords">Повторення вивчених слів </option>
+                                <option value="wordsToStudy">Слова для вивчення</option>
+                                <option value="SPOKEN">бла бла бла </option>
+                                <option value="BUSINESS">бла блаблабла</option>
+                                <option value="ECONOMIC">блаблаблаблабла</option>
+                                <option value="TOURIST">блаблаблаблабла</option>
+                                <option value="TECHNICAL">блаблаблаблаблабла</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <button id="btnPlayWords" type="button" class="btn btn-danger btn-large" style="float: right;"
+                            data-toggle="modal" data-target="#modalPlayWords">Грати</button>
+                </div>
+
+                <!-- END MENU FOR WORDS PLAY-->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PROFILE MENU -->
+<!-- MODAL WORDS PLAY-->
+<div class="modal fade bs-example-modal-lg" id="modalPlayWords" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"  style="height: 562px; width: 512px">
+        <img id="imgWordsPlay" class="img-thumbnail img-rounded" width="100px" height="100px" style="position: fixed; left: 40%; top: 0; z-index: 3">
+        <div class="modal-content" style="background: transparent;">
+            <div id="carousel-example-generic" class="carousel slide" data-interval="false" style="margin-top: 50px; background: transparent;
+                height: 512px; width: 512px; background-size: 512px 512px;
+                background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)), url(http://media.istockphoto.com/photos/creative-english-alphabet-texture-background-picture-id616116936);
+                ">
+
+
+                <!-- Wrapper for slides -->
+                <div class="item active" style="text-align: center; position: absolute; top:50px; width: 512px">
+                    <h1 id="plawWordEnglish" style="text-align: center"> s</h1>
+                    <h2 id="plawWordUkr" style="color: darkred"> s</h2>
+                    <button id="btnMoveToStudyPlayWord" type="button" class="btn btn-warning btn-md" style="position: fixed; bottom: 40px">Додати до свого словника</button>
+                    <a href="#" style="bottom: 5px;left: 0px; position: fixed; width: 512px" id="btnShowGoogleTransl" target="_new">
+                        <i class="fa fa-google-plus-square" style="font-size:28px"></i> <i style="font-size:20px; color: red;">Показати більш детальну інформацію</i>
+                    </a>
+
+
+
+                </div>
+
+                <!-- Controls -->
+                <a id="btnPrevPlayWords" class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a id="btnNextPlayWords" class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL WORDS PLAY-->
+<div id="video" class="container" style="display: none">
+    <video controls="controls" controls preload="metadata">
+        <source src='https://www.iandevlin.com/html5test/webvtt/v/upc-tobymanley.theora.ogg' type='video/ogg'>
+        <source src="https://www.iandevlin.com/html5test/webvtt/v/upc-tobymanley.mp4" type="video/mp4" />
+        <track label="English subtitles" kind="subtitles" srclang="en" src="https://www.iandevlin.com/html5test/webvtt/upc-video-subtitles-en.vtt">
+        Your browser does not support HTML5 video.
+
+    </video>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        var user;
+        var userToken;
+        var messageRespone;
+        var wordToLearned = {};
+        var dictionary;
+        var linkToImg;
+
+
+        /**
+         * auto changing background
+         */
+        var body = $('body');
+        // todo load locally
+        var backgrounds =   ['url(https://us.v-cdn.net/5021421/uploads/VF9UBSGE86BA.jpg)',
+                            'url(http://www.virtuallearning.org.uk/wp-content/uploads/2010/11/Autonomous-Learning.jpg)',
+                            'url(http://7thgradeela-freel.wikispaces.com/file/view/Picture_1.png/158597641/Picture_1.png)',
+                            'url(http://mexicodailyreview.com.mx/wp-content/uploads/2015/01/english.jpg)',
+                            'url(http://justaddgerman.wp1.visual4.com/wp-content/uploads/2015/02/Bild_klein.jpg)',
+                            'url(http://tlc6.weebly.com/uploads/1/0/4/0/10404736/3817882_orig.gif)',
+                            'url(http://static-files.asianetnews.tv/media/image_library/29ae690e-f5e1-4699-a808-39de324d34c0/image_760x400.jpg)',
+                            'url(https://pavoninenglish.files.wordpress.com/2016/11/english-words.png)',
+                            'url(http://www.escapenetwork.com/wp-content/uploads/sites/6/2017/05/skate_text1_wm.png)',
+                            'url(https://cdn-images-1.medium.com/max/1200/1*060ZZZBvOBB_uzQYYQwInA.jpeg)'
+                            ];
+        var current = 0;
+
+        function nextBackground() {
+
+            body.css(
+                'background',
+                backgrounds[current = ++current % backgrounds.length]
+            );
+            body.css({
+                'background-repeat': 'no-repeat',
+                'background-position': 'center',
+                'background-attachment': 'fixed',
+                'background-size' : '1140px 700px'
+            });
+
+
+            setTimeout(nextBackground, 20000);
+        }
+
+        setTimeout(nextBackground, 20000);
+
+
+        /**
+         * supporting func
+         */
+
+        function checkPass(){
+            var pass1 = $('#password');
+            var passConfirm = $('#passwordConfirm');
+
+            var message = $('#confirmMessage');
+
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+
+            if(pass1.val() == passConfirm.val() && pass1.val().length > 4 && pass1.val().length < 12){
+                passConfirm.css("background-color", goodColor);
+                message.css("color", goodColor);
+
+                message.text("Passwords Match");
+                return true;
+            }else{
+                passConfirm.css("background-color", badColor);
+                message.css("color", badColor);
+
+                message.text("Passwords Do Not Match!");
+                return false;
+            }
+        };
+
+        function emailValidate(){
+            var regMail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            var email = this.value;
+
+
+            if(regMail.test(email))
+            {
+                $('#statusEmail').text("Thanks, you have entered a valid Email address!")
+                return true;
+            }
+            else
+            {
+                $('#statusEmail').text("Email address is not valid yet.")
+                return false;
+            }
+        }
+
+        function register() {
+            var check = checkPass();
+            if (!check) {
+                alert("Введіть корректно паролі");
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "/register",
+                data: JSON.stringify({
+                    email: $('#email').val(),
+                    pass: $('#password').val(),
+                    englishLvl: $('#englishLvl').val(),
+                    languageCategories: $('#languageCategory').val()
+                }),
+                success: function (result) {
+                    if (result === "User successfully created") {
+                        alert("Користвач успішно створений! Зайдіть до щойно свтореного акаунту");
+                        return;
+                    } else {
+                        alert(result.toString());
+                    }
+                }
+
+            });
+        }
+
+        function login() {
+            $.ajax({
+                type: 'POST',
+                url: "/login",
+                data: JSON.stringify({
+                    email: $('#emailLogin').val(),
+                    pass: $('#passwordLogin').val()
+                }),
+                success: function (result) {
+                    var response = JSON.parse(result);
+                    if (response.errorMsg)
+                        alert(response.errorMsg);
+                    else {
+                        user = response.user;
+                        userToken = response.userToken;
+                        dictionary = response.dictionary;
+                        $('#loginModal').modal('hide');
+                        $('#btnLog').text("Logout from " + user.email.toString());
+                        $('#profileEmail').text(user.email);
+                        $('#profileLanLvl').text(user.englishLvl);
+
+                    }
+                }
+
+            });
+        }
+
+        function showWordsMenu(key) {
+            var words;
+            $('#wordsToStudySelect').find('option').remove();
+            $('#wordsToStudySelect').empty();
+
+            if (key == "toStudy"){
+                words = user.wordsToStudy;
+                $.each(words, function () {
+                    $('#wordsToStudySelect').append($("<option></option>").attr('data-subtext', this.ukrainian).text(this.english));
+                })
+                $('#btnMoveWordToLearned').show();
+                $('#btnMoveWordToStudy').hide();
+            } else if(key == "learned"){
+                words = user.learnedWords;
+                $.each(words, function () {
+                    $('#wordsToStudySelect').append($("<option></option>").attr('data-subtext', this.ukrainian).text(this.english).val(this.english));
+                })
+                $('#btnMoveWordToLearned').hide();
+                $('#btnMoveWordToStudy').show();
+            }
+            $('#wordsToStudySelect').selectpicker('refresh');
+            $('#wordsToStudySelect').selectpicker('show');
+            $('ul.dropdown-menu').css({
+                'height': '260px',
+                'overflow':'hidden',
+                'overflow-y':'scroll'
+            });
+
+            setTimeout(function () {
+                $('div.bootstrap-select').addClass('open');
+            });
+
+        }
+        
+
+        /** func add move word in user list
+         */
+
+        function moveWordToStudy(word) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/moveWordToStudy",
+                data: JSON.stringify(word),
+                success: function (result) {
+                    var response = JSON.parse(result);
+                    if (response.errorMsg)
+                        alert(response.errorMsg);
+                    else {
+                        user = undefined;
+                        user = response.user;
+                    }
+                }
+
+            });
+        }
+
+        function moveWordToLearned(word) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/moveWordToLearned",
+                data: JSON.stringify(word),
+                success: function (result) {
+                    var response = JSON.parse(result);
+                    if (response.errorMsg)
+                        alert(response.errorMsg);
+                    else {
+                        user = undefined;
+                        user = response.user;
+                    }
+                }
+
+            });
+        }
+
+        function getImageLinkByWord(word) {
+            var response = {};
+            var responseLink = "https://api.qwant.com/api/search/images?count=1&offset=1&size=small&q=" + word;
+            $.ajax({
+                type: 'POST',
+                url: "/imgApi",
+                data: JSON.stringify(responseLink),
+                success: function (data) {
+                    response = JSON.parse(data);
+                    linkToImg = response.data.result.items[0].media;
+                    $('#imgWordsPlay').attr("src", linkToImg);
+
+                },
+                error: function (data) {
+                    var a = 's';
+                }
+
+            })
+        }
+
+        /** func start play words
+         */
+
+        function loadWordsInfoForPlayWords(index, arrayOfWords) {
+            var word = arrayOfWords[index];
+            getImageLinkByWord(word.english);
+            $('#plawWordEnglish').text(word.english);
+            $('#plawWordUkr').text(word.ukrainian);
+            // todo extract as a constant
+            var urlGoogleTransl = "https://translate.google.com/#en/uk/" + word.english.toString();
+            $('#btnShowGoogleTransl').attr('href', urlGoogleTransl);
+
+            $('#btnMoveToStudyPlayWord').unbind().click(function () {
+                moveWordToStudy(word);
+            })
+
+        }
+
+        $('#btnPlayWords').click(function () {
+            //todo add select lvl and themes
+            var vocabluary = dictionary.vocabluary;
+            var arrayOfWords = Object.values(vocabluary);
+            var index = Math.floor(Math.random()* arrayOfWords.length);
+            loadWordsInfoForPlayWords(index, arrayOfWords);
+            var counterPlaingWords = 0;
+            var arrayOfIndexWrods = [index];
+            $('#btnNextPlayWords').click(function () {
+                if(arrayOfIndexWrods[counterPlaingWords + 1]){
+                    counterPlaingWords++;
+                    loadWordsInfoForPlayWords(counterPlaingWords, arrayOfWords);
+                } else {
+                    counterPlaingWords++;
+                    index = Math.floor(Math.random()* arrayOfWords.length);
+                    arrayOfIndexWrods[counterPlaingWords] = index;
+                    loadWordsInfoForPlayWords(index, arrayOfWords);
+                }
+            })
+
+            $('#btnPrevPlayWords').click(function () {
+                if(arrayOfIndexWrods.length > 1){
+                    counterPlaingWords--;
+                    loadWordsInfoForPlayWords(arrayOfIndexWrods[counterPlaingWords], arrayOfWords);
+                }
+            })
+
+
+        })
+
+
+
+
+        /**
+         * func for deactivate/hide another el in block
+         */
+
+        function moveActiveStyle(thisEl) {
+            thisEl.parent().children().removeClass();
+            thisEl.addClass('active');
+        }
+        function hideElBrothers(thisEl) {
+            thisEl.parent().children().hide();
+            thisEl.show();
+        }
+
+
+
+        /**
+         * login and reg tools
+         */
+        $('#passwordConfirm').keyup(checkPass);
+        $('#email').change(emailValidate);
+
+        $('#registrationForm').submit(register);
+        $('#loginForm').submit(login);
+        $('#btnLog').click(function () {
+            user = null;
+            location.reload();
+        })
+
+        /*todo add normal logout funct with ajax (delete token)
+
+        /**
+         * check for valid user and show login modal window for invalid user
+         */
+        if (!user) {
+            $('#loginModal').modal({
+                show: true,
+                keyboard: false,
+                backdrop: 'static'
+            });
+        };
+
+
+
+
+        /**
+         * main top menu
+         */
+        $('#btnProfile').click(function () {
+            $('#userMenu').slideToggle(100);
+        });
+
+
+
+        /**
+         * profile menu
+         */
+
+        // show common prof menu
+        $('#profileCommon').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#menuProfileCommon'));
+            showWordsMenu("toStudy")
+            $('#profileRightPart').toggle(100);
+            //$('#menuProfileCommon').toggle(100);
+
+        })
+
+
+        $('#btnMoveWordToStudy').click(function () {
+            var word = {};
+            word.english = $('#wordsToStudySelect').val();
+            moveWordToStudy(word);
+        })
+
+        $('#btnMoveWordToLearned').click(function () {
+            wordToLearned.english = $('#wordsToStudySelect').val();
+            moveWordToLearned(wordToLearned);
+
+        })
+
+
+        // show play words menu
+        $('#profilePlay').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#menuPlayWords'));
+            $('#profileRightPart').toggle(100);
+            //$('#menuPlayWords').slideToggle(100);
+            $('#menuPlayWords').css('height', '100px');
+        });
+
+        // play words
+
+        /**
+         * end profile menu
+         */
+
+
+
+
+        /**
+         * my profile menu
+         */
+
+        $('#menuWordsToStudy').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#wordsToStudy'));
+            showWordsMenu("toStudy");
+        })
+
+
+        $('#menuLearnedWords').click(function () {
+            moveActiveStyle($(this));
+            hideElBrothers($('#wordsToStudy'));
+            showWordsMenu("learned");
+        })
+
+        /**
+         * play video
+         */
+
+        $('#btnVideo').click(function () {
+            $('#userMenu').hide();
+            $('#video').show();
+
+
+        })
+
+
+
+
+
+
+
+
+    });
+</script>
+
+</body>
+</html>

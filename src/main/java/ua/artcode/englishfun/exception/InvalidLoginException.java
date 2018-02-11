@@ -5,6 +5,6 @@ package ua.artcode.englishfun.exception;
  */
 public class InvalidLoginException extends AppException {
     public InvalidLoginException(String message) {
-        super(message);
+        super("Error!" + message);
     }
 }

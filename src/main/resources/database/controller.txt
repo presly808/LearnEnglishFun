@@ -1,0 +1,58 @@
+{
+  "userDB": {
+  "nextID": 1,
+    "users": [
+      {
+        "id": 1,
+        "email": "test@gmail.com",
+        "pass": "qweqwe",
+        "learnedWords": [
+          {
+            "english": "hello",
+            "ukrainian": "Привіт"
+          },
+          {
+            "english": "fix",
+            "ukrainian": "фикс"
+          }
+        ],
+        "wordsToStudy": [
+          {
+            "english": "hi",
+            "ukrainian": "Привіт"
+          }
+        ],
+        "watchedVideo": [],
+        "favouriteVideo": [],
+        "ukr": false,
+        "rus": false
+      }
+    ],
+    "tokens": {}
+  },
+  "dictionary": {
+    "namme": "EngUkr",
+    "vocabluary": {
+      "zoophyte": {
+        "english": "zoophyte",
+        "ukrainian": "зоофіт"
+      },
+      "zoom": {
+        "english": "zoom",
+        "ukrainian": "масштабування, злетіти"
+      },
+      "zooms": {
+        "english": "zooms",
+        "ukrainian": "масштабування"
+      },
+      "zoology": {
+        "english": "zoology",
+        "ukrainian": "зоологія"
+      },
+      "zoophytes": {
+        "english": "zoophytes",
+        "ukrainian": "зоофіти"
+      }
+    }
+  }
+}
